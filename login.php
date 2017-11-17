@@ -30,6 +30,7 @@
                                     $details = $res->fetch_row();
                                     $_SESSION['type'] = $details[0];
                                 }
+                                $_SESSION['user'] = $user;
                                 break;
                             }
                         }
