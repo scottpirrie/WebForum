@@ -30,6 +30,7 @@
     <?php
     include("calls.php");
     $conn = loadDB();
+
     ?>
 </head>
 <body>
@@ -38,7 +39,7 @@
     Forum
 </h1>
 <?php
-$action = safePost($conn,"action");
+
 if($_SERVER["REQUEST_METHOD"]== "POST") {
     if(isset($_POST["create"])) {
         $threadName = cleanStr($_POST["threadName"], $conn);

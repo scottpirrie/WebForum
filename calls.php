@@ -9,6 +9,9 @@ function loadDB(){
         die("Connection failed: Unable to connect to tournament database");
     }
     session_start();
+    if(!isset($_SESSION['type'])){
+        $_SESSION['type']=0;
+    }
     return $conn;
 }
 
@@ -26,5 +29,6 @@ function createAdminAccount($conn){
     $sql = "INSERT INTO `Login` (`id`, `username`, `password`, `type`) VALUES (1, 'admin', '$pass', '1')";
     $conn->query($sql);
 }
+
 
 ?>

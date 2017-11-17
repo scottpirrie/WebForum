@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
-</head>
+    <title>Welcome</title></head>
 <body>
 
 </body>
