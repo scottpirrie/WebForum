@@ -8,6 +8,7 @@ function loadDB(){
     if ($conn->connect_error) {
         die("Connection failed: Unable to connect to tournament database");
     }
+    session_start();
     return $conn;
 }
 
