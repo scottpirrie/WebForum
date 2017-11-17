@@ -7,11 +7,19 @@
     include("calls.php");
     $conn = loadDB();
 
+    $currentPath = basename(__FILE__);
+    include_once("menu.php");
+
     ?>
 </head>
 <body>
     <?php
         if($_SERVER["REQUEST_METHOD"]=="POST"){
+    if(isset($_POST["logoff"])){
+
+        $_SESSION['type'] = NULL;
+
+    }
             if(isset($_POST["login"])){
                 $loginUser = cleanStr($_POST["user"], $conn);
                 $loginPass = cleanStr($_POST["pass"], $conn);
@@ -30,6 +38,7 @@
                                     $details = $res->fetch_row();
                                     $_SESSION['type'] = $details[0];
                                 }
+                                $_SESSION['user'] = $user;
                                 break;
                             }
                         }
@@ -39,10 +48,7 @@
 
         }
 
-    if($_SESSION['type']==0){
-
-
-    ?>
+    if($_SESSION['type']==0){ ?>
 
     <div id = "login">
         <form method = "POST" action = "login.php">
@@ -51,6 +57,15 @@
             <input type = "submit" name = "login" value = "Login"><br>
         </form>
     </div>
-<?php }?>
+<?php } else {?>
+
+        <div id = "logoff">
+            <form method = "POST" action = "login.php">
+                <input type = "submit" name = "logoff" value = "Logoff"><br>
+            </form>
+        </div>
+
+
+   <?php }?>
 </body>
 </html>
