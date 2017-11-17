@@ -1,10 +1,5 @@
 <?php
 
-if (!isset($_SESSION))
-{
-    session_start();
-}
-
 function loadDB(){
     $servername = "devweb2017.cis.strath.ac.uk";
     $username = "cs312_k";
