@@ -1,25 +1,4 @@
-<?php
-function safePOST($conn,$name){
-    if(isset($_POST[$name])){
-        return $conn->real_escape_string(strip_tags($_POST[$name]));
-    } else {
-        return "";
-    }
-}
-
-//Connect
-$host = "devweb2017.cis.strath.ac.uk";
-$user = "cs312_k";
-$password = "Aithu0ochoo9";
-$dbname = "cs312_k";
-$conn = new mysqli($host,$user,$password,$dbname);
-
-if ($conn->connect_error){
-    die("Connection failed : ".$conn->connect_error); //FIXME remove once working.
-}
-$action = safePost($conn,"action");
-?>
-
+<!DOCTYPE html>
 <html lang="en">
 <style>
     table {
@@ -48,36 +27,29 @@ $action = safePost($conn,"action");
 <head>
     <meta charset="UTF-8">
     <title>Forum</title>
+    <?php
+    include("calls.php");
+    $conn = loadDB();
+
+    ?>
 </head>
 <body>
+
 <h1>
     Forum
 </h1>
 <?php
 
-if($action=="newpost") {
-    ?>
-    <form method="post">
-        Thread title<input type="text" name="threadName">
-        <input type="hidden" name="action" value="createthread">
-        <button type="submit">Post</button>
-    </form>
-    <?php
-}else if($action=="createthread"){
-    $threadName=$_POST["threadName"];
+if($_SERVER["REQUEST_METHOD"]== "POST") {
+    if(isset($_POST["create"])) {
+        $threadName = cleanStr($_POST["threadName"], $conn);
 
-    $sql="INSERT INTO `Threads` (`id`, `threadname`, `creatorid`, `date`) VALUES (NULL, '$threadName', '1', '2017-11-16')";
-    $conn->query($sql);
+        $sql = "INSERT INTO `Threads` (`id`, `threadname`, `creatorid`, `date`) VALUES (NULL, '$threadName', '1', '2017-11-16')";
+        $conn->query($sql);
 
-    echo "<p>Thread created successfully";
-
-    ?>
-    <form method="post">
-        <button type="submit" name="action" value="">Return to Forum</button>
-    </form>
-    <?php
-
-}else{
+        echo "<p>Thread created successfully</p>";
+    }
+}
 
     $sql = "SELECT * FROM `Threads`";
     $result = $conn->query($sql);
@@ -96,12 +68,9 @@ if($action=="newpost") {
     }
     echo "</table>";
     ?>
-    <form method="post">
-        <input type="hidden" name="action" value="newpost">
+    <form method="POST" action = "newthread.php">
         <input type ="submit" name="submit" value="Create new post"/>
     </form>
-    <?php
-}
-?>
+
 </body>
 </html>

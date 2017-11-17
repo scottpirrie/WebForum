@@ -39,7 +39,7 @@
 
         }
 
-    if(!isset($_SESSION['type'])){
+    if($_SESSION['type']==0){
 
 
     ?>
