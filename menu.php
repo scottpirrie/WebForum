@@ -35,7 +35,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     }
 }
 ?>
-
+ 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
