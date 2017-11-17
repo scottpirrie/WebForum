@@ -1,6 +1,8 @@
 <?php
+session_start();
 
-function loadDB(){
+function loadDB()
+{
     $servername = "devweb2017.cis.strath.ac.uk";
     $username = "cs312_k";
     $password = "Aithu0ochoo9";
@@ -9,15 +11,15 @@ function loadDB(){
     if ($conn->connect_error) {
         die("Connection failed: Unable to connect to tournament database");
     }
-    session_start();
-    if(!isset($_SESSION['type'])){
-        $_SESSION['type']=0;
+    if (!isset($_SESSION['type'])) {
+        $_SESSION['type'] = 0;
     }
     return $conn;
 }
 
-function cleanStr($in, $conn){
-    if(!($in == null)) {
+function cleanStr($in, $conn)
+{
+    if (!($in == null)) {
         $in = trim($in);
         $in = htmlspecialchars($in);
         $in = $conn->real_escape_string($in);
@@ -25,15 +27,23 @@ function cleanStr($in, $conn){
     return $in;
 }
 
-function createAdminAccount($conn){
+function createAdminAccount($conn)
+{
     $pass = password_hash("abcd", PASSWORD_BCRYPT);
     $sql = "INSERT INTO `Login` (`id`, `username`, `password`, `type`) VALUES (1, 'admin', '$pass', '1')";
     $conn->query($sql);
 }
 
-function compareFile($desiredPath, $actualPath) {
+function compareFile($desiredPath, $actualPath)
+{
     if ($desiredPath == $actualPath) {
         echo "class= \"active\"";
     }
+}
+
+function logOff()
+{
+    $_SESSION['type'] = 0;
+    $_SESSION['user'] = "";
 }
 ?>
