@@ -7,7 +7,6 @@
     $currentPath = basename(__FILE__);
     include_once("menu.php");
     ?>
-
 </head>
 <body>
 

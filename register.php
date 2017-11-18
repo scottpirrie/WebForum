@@ -6,54 +6,77 @@
     <?php
     $currentPath = basename(__FILE__);
     include_once("menu.php");
-    $errUser = "";
     ?>
-
 </head>
 <body>
 
-<h1>Header</h1>
+<h1>Register</h1>
 
-<p>Currently logged in as: <?php echo $_SESSION['user'] ?></p>
-<p>Privilege level: <?php echo $_SESSION['type'] ?></p>
-
-</body>
-</html>
-
-
-
-</head>
-<body>
 <?php
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-    if(isset($_POST["create"])){
 
-        $createUser = cleanStr($_POST["user"], $conn);
-        $createPass = cleanStr($_POST["pass"], $conn);
-        $createPass = password_hash($createPass, PASSWORD_BCRYPT);
-        $sql = "SELECT `username` FROM `Login`";
-        $res = $conn->query($sql);
-        if($res->num_rows > 0){
-            while($user = $res->fetch_row()) {
-                if ($user[0] == $createUser) {
-                    $errUser = "A user already exists with that username.";
-                    break;
-                }
+$accountCreationSuccess = false;
+
+if (isset($_POST["create"])) {
+    $createUser = cleanStr($_POST["newUsername"], $conn);
+    $createPass = password_hash($_POST["newPassword"], PASSWORD_BCRYPT);
+    $accountCreationSuccess = true;
+
+    $sql = "SELECT `username` FROM `Login`";
+    $res = $conn->query($sql);
+    if ($res->num_rows > 0) {
+        while ($row = $res->fetch_assoc()) {
+            if ($serverPass = $row["username"] == $createUser) {
+                ?>
+                <script>usernameTaken();</script><?php
+                $accountCreationSuccess = false;
+                break;
             }
         }
-        if($errUser == ""){
-            $sql = "INSERT INTO `Login` (`username`, `password`, `type`) VALUES ('$createUser', '$createPass', '2')";
-            $res = $conn->query($sql);
-        }
+    }
+
+    if ($accountCreationSuccess) {
+        $sql = "INSERT INTO `Login` (`username`, `password`, `type`) VALUES ('$createUser', '$createPass', '2')";
+        $conn->query($sql);
+
+        $_SESSION['user'] = $createUser;
+        $_SESSION['type'] = 2;
+        ?>
+
+        <script>alert("Account sucessfully created; attempting to redirect." + "\n" +
+                "(In the event of failure; please manually navigate.")</script>
+        <script>window.location = "home.php";</script> <?php
+
+
     }
 }
-    ?>
-    <div id = "create">
-        <form method = "POST" action = "register.php">
-            Username<input type = text name = "user" minlength="4" maxlength="15" required> <?php echo $errUser;?><br>
-            Password<input type = password name = "pass" minlength="4" maxlength="15" required><br>
-            <input type = "submit" name = "create" value = "Create Account"><br>
+
+if ($accountCreationSuccess) {
+    echo "account made, show msg, and auto log them in";
+
+} else {
+    if ($_SESSION['type'] > 0) {
+        echo "log off ples";
+    } else { ?>
+        <form method="POST" action="register.php">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="userToBe"> Username </label>
+                    <input id="userToBe" type=text name="newUsername" minlength="4" maxlength="15" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passToBe">Password</label>
+                    <input id="passToBe" type=password name="newPassword" minlength="4" maxlength="15" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" name="create" value="Create Account"><br>
+                </div>
+            </div>
         </form>
-    </div>
+    <?php }
+} ?>
+
+
 </body>
 </html>
