@@ -13,7 +13,7 @@ function loadDB()
     $dbname = $username;
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
-        die("Connection failed: Unable to connect to tournament database");
+        echo "Please refresh";
     }
     if (!isset($_SESSION['type'])) {
         $_SESSION['type'] = 0;
