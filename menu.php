@@ -44,7 +44,22 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
 
         <ul class="nav navbar-nav">
             <li class="nav-link<?php compareFile("home.php", $currentPath) ?>"><a href="home.php">Topics</a></li>
+            <?php if ($_SESSION['type'] == 0) {
+            ?>
             <li class="nav-link<?php compareFile("register.php", $currentPath) ?>"><a href="register.php">Register</a>
+                <?php
+                }
+
+                if ($_SESSION['type'] > 0) {
+                ?>
+            <li class="nav-link<?php compareFile("me.php", $currentPath) ?>"><a href="me.php">My Account</a><?php
+                }
+
+                if ($_SESSION['type'] > 1) {
+                ?>
+            <li class="nav-link<?php compareFile("administrative.php", $currentPath) ?>"><a href="administrative.php">AdminHub</a><?php
+                } ?>
+
             </li>
         </ul>
 
@@ -53,16 +68,24 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
             $_SESSION['type'] = isset($_SESSION['type']) ? $_SESSION['type'] : 0;
 
             if ($_SESSION['type'] > 0) {
-                ?><li class="nav-item">
-                    <form class="navbar-form" action="<?php echo $currentPath ?>" method="post">
+                ?>
+                <li class="nav-item">
+                    <form class="navbar-form" action="index.php" method="post">
                         <input name="logoff" type="submit" value="Log Out" class="btn btn-sm"/>
                     </form>
                 </li>
 
                 <?php
             } else {
-                ?><li class="nav-item">
-                    <form class="navbar-form" action="<?php echo $currentPath ?>" method="post">
+                ?>
+                <li class="nav-item">
+                    <form class="navbar-form" action="<?php if ($currentPath == "register.php") {
+                        echo "home.php";
+                    } else {
+                        echo $currentPath;
+                    }
+
+                    ?>" method="post">
 
                         <input class="form-control" type=text name="user" minlength="4" maxlength="15"
                                placeholder="username"

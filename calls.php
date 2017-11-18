@@ -65,7 +65,7 @@ function logOff()
 
     function accountCreated() {
         alert("Account sucessfully created; attempting to redirect." + "\n" +
-            "(In the event of failure; please manually navigate.")
+            "(In the event of failure; please manually navigate.)")
     }
 
     function redirect() {

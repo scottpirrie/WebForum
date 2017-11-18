@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <script src="js/bootstrap.js"></script>
-
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+    <?php
+    $currentPath = basename(__FILE__);
+    include_once("menu.php");
+    ?>
 </head>
 <body>
-<h1>Hello, world!</h1>
 
-<script src="js/bootstrap.min.js"></script>
+<iframe width="100%" height="1080" src="https://www.youtube.com/embed/ZFC9mjdfcUo" frameborder="0" allowfullscreen></iframe>
+
+
+
+
+
 </body>
 </html>

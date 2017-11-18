@@ -57,7 +57,7 @@ if ($usernameTaken) { ?>
 
 if ($accountCreationSuccess) { ?>
     <div class="container col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
+        <div class="panel panel-warning">
             <div class="panel-heading">Successfully registered an account, redirect failed.</div>
             <div class="panel-body">Please navigate using the menu bar. <br>
                 To make a new account, log out.
@@ -68,7 +68,7 @@ if ($accountCreationSuccess) { ?>
 } else {
     if ($_SESSION['type'] > 0) { ?>
         <div class="container col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel panel-warning">
                 <div class="panel-heading">Can not register an account.</div>
                 <div class="panel-body">You are currently logged in. <br>
                     To make a new account, log out.
