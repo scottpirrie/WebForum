@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<h1>Register</h1>
+<h1 class="page-header">Register</h1>
 
 <?php
 
@@ -26,10 +26,9 @@ if (isset($_POST["create"])) {
     if ($res->num_rows > 0) {
         while ($row = $res->fetch_assoc()) {
             if ($serverPass = $row["username"] == $createUser) {
-                ?>
                 $usernameTaken = true;
                 $accountCreationSuccess = false;
-                break; <?php
+                break;
             }
         }
     }
@@ -61,25 +60,39 @@ if ($accountCreationSuccess) {
     if ($_SESSION['type'] > 0) {
         echo "log off ples";
     } else { ?>
-        <form method="POST" action="register.php">
-            <div class="form-group">
-                <div class="form-group">
-                    <label for="userToBe"> Username </label>
-                    <input id="userToBe" type=text name="newUsername" minlength="4" maxlength="15" required>
+        <form method="POST" action="register.php" class="form">
+
+
+            <div class="container center-block">
+
+
+                <div class="form-group row">
+
+                        <label class="col-sm-2 col-form-label" for="userToBe"> Username </label>
+                        <input class="form-control" id="userToBe" type=text name="newUsername"
+                               minlength="4"
+                               maxlength="15"
+                               required>
+
                 </div>
 
-                <div class="form-group">
-                    <label for="passToBe">Password</label>
-                    <input id="passToBe" type=password name="newPassword" minlength="4" maxlength="15" required>
+                <div class="form-group row">
+
+                        <label class="col-sm-2 col-form-label" for="passToBe">Password</label>
+                        <input class="form-control" id="passToBe" type=password name="newPassword" minlength="4"
+                               maxlength="15" required>
+
                 </div>
 
-                <div class="form-group">
-                    <input type="submit" name="create" value="Create Account"><br>
+                <div class="form-group row">
+                    <div class="col-xs-2">
+                        <input class="btn btn-primary" type="submit" name="create" value="Create Account"><br>
+                    </div>
                 </div>
+
             </div>
+
+
         </form>
     <?php }
 } ?>
-
-
-</body>

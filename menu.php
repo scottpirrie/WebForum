@@ -55,7 +55,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
             if ($_SESSION['type'] > 0) {
                 ?><li class="nav-item">
                     <form class="navbar-form" action="<?php echo $currentPath ?>" method="post">
-                        <input name="logoff" type="submit" value="Log Out" class="btn btn-default"/>
+                        <input name="logoff" type="submit" value="Log Out" class="btn btn-sm"/>
                     </form>
                 </li>
 
@@ -63,13 +63,16 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
             } else {
                 ?><li class="nav-item">
                     <form class="navbar-form" action="<?php echo $currentPath ?>" method="post">
+
                         <input class="form-control" type=text name="user" minlength="4" maxlength="15"
                                placeholder="username"
                                required>
                         <input class="form-control" type=password name="pass" minlength="4" maxlength="15"
                                placeholder="password"
                                required>
-                        <input name="login" type="submit" value="Log In" class="btn btn-default"/>
+
+                        <input name="login" type="submit" value="Log In" class="form-control btn btn-sm"/>
+
                     </form>
                 </li>
                 <?php
