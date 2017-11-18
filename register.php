@@ -2,12 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Account</title>
+    <title>Register</title>
     <?php
-    include("calls.php");
-    $conn = loadDB();
+    $currentPath = basename(__FILE__);
+    include_once("menu.php");
     $errUser = "";
     ?>
+
+</head>
+<body>
+
+<h1>Header</h1>
+
+<p>Currently logged in as: <?php echo $_SESSION['user'] ?></p>
+<p>Privilege level: <?php echo $_SESSION['type'] ?></p>
+
+</body>
+</html>
+
+
+
 </head>
 <body>
 <?php
@@ -35,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 }
     ?>
     <div id = "create">
-        <form method = "POST" action = "create.php">
+        <form method = "POST" action = "register.php">
             Username<input type = text name = "user" minlength="4" maxlength="15" required> <?php echo $errUser;?><br>
             Password<input type = password name = "pass" minlength="4" maxlength="15" required><br>
             <input type = "submit" name = "create" value = "Create Account"><br>

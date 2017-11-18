@@ -1,5 +1,7 @@
 <?php include_once("calls.php");
-$conn = loadDB();
+
+echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"
+          integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">";
 
 if (!isset($currentPath)) {
     $currentPath = "menu.php";
@@ -35,41 +37,49 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     }
 }
 ?>
- 
-<nav class="navbar navbar-default">
+
+<ul class="navbar navbar-inverse">
     <div class="container-fluid">
+
         <div class="navbar-header">
             <a class="navbar-brand" href="index.php">Meme Forum</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li <?php compareFile("topics.php", $currentPath) ?>><a href="topics.php">Topics</a></li>
-            <li <?php compareFile("create.php", $currentPath) ?>><a href="create.php">Sign Up</a></li>
 
+        <ul class="nav navbar-nav">
+            <li class="nav-link<?php compareFile("topics.php", $currentPath) ?>"><a href="topics.php">Topics</a></li>
+            <li class="nav-link<?php compareFile("register.php", $currentPath) ?>"><a href="register.php">Register</a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
             <?php
             $_SESSION['type'] = isset($_SESSION['type']) ? $_SESSION['type'] : 0;
 
             if ($_SESSION['type'] > 0) { ?>
-                <form action="<?php echo $currentPath ?>" method="post">
-                    <li><input name="logoff" type="submit" value="Log Off" class="btn btn-default"/></li>
-                </form>
-                <?php
-            } else { ?>
+                <li class="nav-item">
+                    <form class="navbar-form" action="<?php echo $currentPath ?>" method="post">
+                        <input name="logoff" type="submit" value="Log Out" class="btn btn-default"/>
+                    </form>
+                </li>
 
-                <form action="<?php echo $currentPath ?>" method="post">
-                    <ul class="dropdown-menu">
-                        <li></li>
-                        <label>
-                            <input type=text name="user" minlength="4" maxlength="15" placeholder="username" required>
-                        </label>
-                        <label>
-                            <input type=password name="pass" minlength="4" maxlength="15" placeholder="password" required>
-                        </label>
-                        <li><input name="login" type="submit" value="Log In" class="btn btn-default"/></li>
-                    </ul>
+                <?php
+            } else {
+                ?>
+                <li class="nav-item">
+                <form class="navbar-form" action="<?php echo $currentPath ?>" method="post">
+                    <input class="form-control" type=text name="user" minlength="4" maxlength="15"
+                           placeholder="username"
+                           required>
+                    <input class="form-control" type=password name="pass" minlength="4" maxlength="15"
+                           placeholder="password"
+                           required>
+                    <input name="login" type="submit" value="Log In" class="btn btn-default"/>
                 </form>
+                </li>
                 <?php
             }
-            ?>
-        </ul>
+            ?></ul>
+
     </div>
-</nav>
+</ul>
+
