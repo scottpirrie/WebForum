@@ -71,4 +71,22 @@ function logOff()
     function redirect() {
         window.location = "home.php";
     }
+
+
+    function checkUsernameSpaces() {
+        var attemptedName = document.forms["register"]["newUsername"].value;
+
+        if (attemptedName.includes(" ")) {
+            document.forms["register"]["newUsername"].value = "";
+            document.forms["register"]["newPassword"].value = "";
+            alert("Username cannot contain spaces.");
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+
 </script>

@@ -28,8 +28,8 @@
     <meta charset="UTF-8">
     <title>Forum</title>
     <?php
-    include("calls.php");
-    $conn = loadDB();
+    $currentPath = basename(__FILE__);
+    include_once("menu.php");
 
     ?>
 </head>

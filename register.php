@@ -78,7 +78,7 @@ if ($accountCreationSuccess) { ?>
 
         <?php
     } else { ?>
-        <form method="POST" action="register.php" class="form">
+        <form method="POST" action="register.php" class="form" name="register" onsubmit="return checkUsernameSpaces();">
 
             <div class="container col-md-4 col-md-offset-4">
                 <div class="form-group row">
