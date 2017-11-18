@@ -15,7 +15,7 @@
 <?php
 
 $accountCreationSuccess = false;
-
+$usernameTaken = false;
 if (isset($_POST["create"])) {
     $createUser = cleanStr($_POST["newUsername"], $conn);
     $createPass = password_hash($_POST["newPassword"], PASSWORD_BCRYPT);
@@ -27,9 +27,9 @@ if (isset($_POST["create"])) {
         while ($row = $res->fetch_assoc()) {
             if ($serverPass = $row["username"] == $createUser) {
                 ?>
-                <script>usernameTaken();</script><?php
+                $usernameTaken = true;
                 $accountCreationSuccess = false;
-                break;
+                break; <?php
             }
         }
     }
@@ -42,13 +42,17 @@ if (isset($_POST["create"])) {
         $_SESSION['type'] = 2;
         ?>
 
-        <script>alert("Account sucessfully created; attempting to redirect." + "\n" +
-                "(In the event of failure; please manually navigate.")</script>
-        <script>window.location = "home.php";</script> <?php
-
-
+        <script>
+            accountCreated();
+            redirect();
+        </script> <?php
     }
 }
+
+if ($usernameTaken) { ?>
+    <script>usernameTaken();</script> <?php
+}
+
 
 if ($accountCreationSuccess) {
     echo "account made, show msg, and auto log them in";
@@ -79,4 +83,3 @@ if ($accountCreationSuccess) {
 
 
 </body>
-</html>

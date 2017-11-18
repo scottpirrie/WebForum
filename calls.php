@@ -1,5 +1,9 @@
 <?php
 session_start();
+$_SESSION["user"] = isset($_SESSION["user"]) ? $_SESSION["user"] : "";
+$_SESSION["type"] = isset($_SESSION["type"]) ? $_SESSION["type"] : 0;
+
+$conn = loadDB();
 
 function loadDB()
 {
@@ -13,6 +17,7 @@ function loadDB()
     }
     if (!isset($_SESSION['type'])) {
         $_SESSION['type'] = 0;
+        $_SESSION['user'] = "";
     }
     return $conn;
 }
@@ -37,7 +42,7 @@ function createAdminAccount($conn)
 function compareFile($desiredPath, $actualPath)
 {
     if ($desiredPath == $actualPath) {
-        echo "class= \"active\"";
+        echo " active";
     }
 }
 
@@ -47,3 +52,23 @@ function logOff()
     $_SESSION['user'] = "";
 }
 ?>
+
+<script>
+    function incorrectLogin() {
+        alert("Could not login." + "\n" +
+            "Details did not correspond to any known account.")
+    }
+
+    function usernameTaken() {
+        alert("Username is already taken.")
+    }
+
+    function accountCreated() {
+        alert("Account sucessfully created; attempting to redirect." + "\n" +
+            "(In the event of failure; please manually navigate.")
+    }
+
+    function redirect() {
+        window.location = "home.php";
+    }
+</script>
