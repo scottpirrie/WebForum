@@ -5,8 +5,8 @@
     <title>Forum</title>
     <?php
     $currentPath = basename(__FILE__);
-    include_once("menu.php");
     include_once("includeHeader.php");
+    include_once("menu.php");
 
     ?>
 </head>
@@ -49,10 +49,12 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
     $sql = "SELECT * FROM `Threads`";
     $result = $conn->query($sql);
     echo "<table>";
+    echo "<tr>";
     echo "<th>Threads</th>";
     echo "<th>Creator</th>";
     echo "<th>Date</th>";
-    if ($result->num_rows > 0) {
+    echo "</tr>";
+if ($result->num_rows > 0) {
         $threadNum = $_SESSION["page"]*10;
         while($row = $result->fetch_assoc()){
             $out[] = $row;
@@ -71,7 +73,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
             $date = $out[$i]["date"];
             $creator = $out[$i]["creator"];
 
-            echo "<tr id=$threadID ondblclick=\"redirectPost(id)\"</td>";
+            echo "<tr id=$threadID ondblclick=\"redirectPost(id)\">";
             echo "<td>" . $threadName . "</td>";
             echo "<td>" . $creator . "</td>";
             echo "<td>" . $date . "</td>";

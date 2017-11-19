@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Forum</title>
     <?php
     $currentPath = basename(__FILE__);
-    include_once("menu.php");
     include_once("includeHeader.php");
-
+    include_once("menu.php");
     ?>
 </head>
 
@@ -59,9 +57,11 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
 $sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
 $result = $conn->query($sql);
 echo "<table>";
-echo "<th width='100' >User</th>";
-echo "<th width='500'>Content</th>";
+echo "<tr>";
+echo "<th>User</th>";
+echo "<th>Content</th>";
 echo "<th>Date</th>";
+echo "</tr>";
 if ($result->num_rows > 0) {
     $threadNum = $_SESSION["page"]*10;
     while($row = $result->fetch_assoc()){
@@ -80,19 +80,17 @@ if ($result->num_rows > 0) {
         $content = $out[$i]["content"];
         $date = $out[$i]["date"];
         echo "<tr>";
-        echo "<td width='100'>" . $creator . "  </td>";
-        echo "<td width='500'>" . $content . "</td>";
-        echo "<td width='100'>" . $date . "</td>";
+        echo "<td>" . $creator . "  </td>";
+        echo "<td>" . $content . "</td>";
+        echo "<td>" . $date . "</td>";
         echo "</tr>";
-        echo"<br>";
     }
 }
 echo "</table>";
 ?>
 
 <form method="GET" action = "newPost.php">
-    <br>
-    <br>
+
     <input type ="submit" name="submit" value="Create new post"/>
 </form>
 
