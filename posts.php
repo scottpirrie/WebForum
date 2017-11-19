@@ -25,11 +25,12 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
                 $threadID = $_SESSION["threadID"];
                 $user = $_SESSION["user"];
                 $date = date('Y-m-d H:m:s', time());
-                $sql = "INSERT INTO `Posts`(`threadid`, `postnumber`, `creator`, `date`, `content`) 
-                                    VALUES ('$threadID','$user','$date','$postContent')";
+                $sql = "INSERT INTO `Posts`(`threadid`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$postContent')";
 
                 if($conn->query($sql)){
                     echo "<p>Post created successfully</p>";
+                }else{
+                    echo"<p>Post not created. An error has occurred.</p>";
                 }
                 $_SESSION["hasPosted"] = true;
             }
