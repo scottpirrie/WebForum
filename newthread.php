@@ -1,26 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Create Thread</title>
-    <?php
-    include_once("menu.php");
-    include_once("includeHeader.php");
-    $conn = loadDB();
-    ?>
+    <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
-<h1>Create Thread</h1>
+
 <?php
-if($_SESSION["type"]==0){
-    echo "<h2>You need to be logged in to create a thread!</h2>";
-} else{
-    $_SESSION["hasPosted"] = false;
+$currentPath = basename(__FILE__);
+include_once("menu.php");
 ?>
-    <form method="post" action = "home.php">
-        Thread title<input type="text" name="threadName" required minlength="2" maxlength="30">
-        <button type="submit" name = "create">Post</button>
-    </form>
-<?php } ?>
+
+
+<div class="page-header col-md-offset-1">
+    <h1>New Thread Topic</h1>
+</div>
+
+<?php
+if ($_SESSION["type"] > 0) {
+    $_SESSION["hasPosted"] = false; ?>
+
+
+    <div class="container col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Create a new thread topic.</div>
+            <div class="panel-body">
+                <form class="form-inline" method="post" action="home.php">
+
+                    <div class="text-center"><label class="col-form-label" for="threadName">Thread name:</label>
+                        <input type="text" id="threadName" name="threadName" required minlength="2" maxlength="30">
+                        <input type="submit" name="create" value="Create!">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+} else { ?>
+    <div class="container col-md-8 col-md-offset-2">
+        <div class="panel panel-warning">
+            <div class="panel-heading">Not logged in!</div>
+            <div class="panel-body">You need to be logged in to create a thread!</div>
+        </div>
+    </div> <?php
+}
+?>
 </body>
 </html>
