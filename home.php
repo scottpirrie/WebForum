@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
             $out[] = $row;
         }
         $out[] = null;
-        for($i = $threadNum-9; $i< $threadNum; $i++) {
+        for($i = $threadNum-10; $i< $threadNum; $i++) {
 
             if($out[$i] == null){
                 $last = true;
