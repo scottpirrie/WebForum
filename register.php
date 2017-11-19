@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Register</title>
-    <?php
-    $currentPath = basename(__FILE__);
-    include_once("menu.php");
-    ?>
+    <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
+
+<?php
+$currentPath = basename(__FILE__);
+include_once("menu.php");
+?>
+
+
 <div class="page-header col-md-offset-1">
     <h1>Register</h1>
 </div>

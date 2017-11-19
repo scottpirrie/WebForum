@@ -1,19 +1,7 @@
 <?php include_once("calls.php");
 ?>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-    @media (max-width: 767px) {
-        .navbar-nav {
-            margin: 0;
-            padding: 0;
-        }
-    }
-</style>
+
 
 <?php
 
@@ -49,9 +37,8 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
 }
 ?>
 
-<ul class="navbar navbar-inverse navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
@@ -125,5 +112,6 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                 ?></ul>
         </div>
     </div>
-</ul>
+</nav>
+
 
