@@ -1,29 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    table {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-    }
-
-    td, th {
-        border: 1px solid #ddd;
-        padding-left: 8px;
-        padding-right: 32px;
-    }
-
-    tr:nth-child(even){background-color: #f2f2f2;}
-
-    tr:hover {background-color: #ddd;}
-
-    th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-    }
-</style>
 <head>
     <meta charset="UTF-8">
     <title>Forum</title>
@@ -120,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
         ?>
     </form>
     <form method="GET" action = "newthread.php">
-        <input type ="submit" name="submit" value="Create new post"/>
+        <input type ="submit" name="submit" value="Create New Thread"/>
     </form>
 
 </body>

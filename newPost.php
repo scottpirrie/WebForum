@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Thread</title>
+    <title>Create Post</title>
     <?php
-    include("calls.php");
+    include_once("menu.php");
+    include_once("includeHeader.php");
     $conn = loadDB();
-
     ?>
-</head>
+
 <body>
-<h1>Create Thread</h1>
+<h1>Create Post</h1>
 <?php
 if($_SESSION["type"]==0){
     echo "<h2>You need to be logged in to create a post!</h2>";

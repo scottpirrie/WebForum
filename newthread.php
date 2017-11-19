@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Create Thread</title>
     <?php
-    include("calls.php");
+    include_once("menu.php");
+    include_once("includeHeader.php");
     $conn = loadDB();
-
     ?>
 </head>
 <body>

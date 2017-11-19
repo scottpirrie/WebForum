@@ -73,7 +73,6 @@ function logOff()
     }
 
     function redirectPost(id) {
-
         window.location = "posts.php?threadID="+id;
     }
 
