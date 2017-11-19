@@ -96,15 +96,13 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
 
                         ?>" method="post">
 
-                                <input class="form-control col-2" type=text name="user" minlength="4" maxlength="15"
-                                       placeholder="username"
-                                       required>
+                            <input class="form-control col-2" type=text name="user" placeholder="username"
+                                   required>
 
-                                <input class="form-control col-2" type=password name="pass" minlength="4" maxlength="15"
-                                       placeholder="password"
-                                       required>
+                            <input class="form-control col-2" type=password name="pass" placeholder="password"
+                                   required>
 
-                                <input name="login" type="submit" value="Log In" class="form-control btn btn-sm"/>
+                            <input name="login" type="submit" value="Log In" class="form-control btn btn-sm"/>
                         </form>
                     </li>
                     <?php
