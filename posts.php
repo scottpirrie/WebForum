@@ -25,7 +25,8 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
                 $threadID = $_SESSION["threadID"];
                 $user = $_SESSION["user"];
                 $date = date('Y-m-d H:m:s', time());
-                $sql = "INSERT INTO `Posts`(`threadid`, `postnumber`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$postContent')";
+                $sql = "INSERT INTO `Posts`(`threadid`, `postnumber`, `creator`, `date`, `content`) 
+                                    VALUES ('$threadID','$user','$date','$postContent')";
 
                 if($conn->query($sql)){
                     echo "<p>Post created successfully</p>";
@@ -57,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
 $sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
 $result = $conn->query($sql);
 echo "<table>";
-echo "<th width='100' >Creator</th>";
+echo "<th width='100' >User</th>";
 echo "<th width='500'>Content</th>";
 echo "<th>Date</th>";
 if ($result->num_rows > 0) {
