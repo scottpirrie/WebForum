@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         if(isset($_GET["nextpage"])){
             $_SESSION["page"]++;
-        } elseif(isset($_GET["nextpage"])){
+        } elseif(isset($_GET["prevpage"])){
             if($_SESSION["page"] > 1){
                 $_SESSION["page"]--;
             }
@@ -97,6 +97,7 @@ if ($result->num_rows > 0) {
         }
         ?>
     </form>
+
     <form method="GET" action = "newthread.php">
         <input type ="submit" name="submit" value="Create New Thread"/>
     </form>
