@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="38276e99-424c-4973-b50a-3b0e016c0b10" name="cafe" url="https://devweb2017.cis.strath.ac.uk/~ywb16155/">
+        <fileTransfer host="cafe.cis.strath.ac.uk" port="22" rootFolder="/home/ywb16155/DEVWEB/2017" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
