@@ -9,7 +9,7 @@ function loadDB()
 {
     $servername = "devweb2017.cis.strath.ac.uk";
     $username = "cs312_k";
-    $password = "Aithu0ochoo9";
+        $password = "Aithu0ochoo9";
     $dbname = $username;
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -72,6 +72,10 @@ function logOff()
         window.location = "home.php";
     }
 
+    function redirectPost(id) {
+
+        window.location = "posts.php?threadID="+id;
+    }
 
     function checkUsernameSpaces() {
         var attemptedName = document.forms["register"]["newUsername"].value;

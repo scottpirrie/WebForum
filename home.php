@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
             $out[] = $row;
         }
         $out[] = null;
-        for($i = $threadNum-9; $i< $threadNum; $i++) {
+        for($i = $threadNum-10; $i< $threadNum; $i++) {
 
             if($out[$i] == null){
                 $last = true;
@@ -90,10 +90,12 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
             } else {
                 $last = false;
             }
+            $threadID = $out[$i]["id"];
             $threadName = $out[$i]["threadname"];
             $date = $out[$i]["date"];
             $creator = $out[$i]["creator"];
-            echo "<tr>";
+
+            echo "<tr id=$threadID ondblclick=\"redirectPost(id)\"</td>";
             echo "<td>" . $threadName . "</td>";
             echo "<td>" . $creator . "</td>";
             echo "<td>" . $date . "</td>";
