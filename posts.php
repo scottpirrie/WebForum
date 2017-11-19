@@ -29,12 +29,6 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
 
                 if($conn->query($sql)){
                     echo "<p>Post created successfully</p>";
-                }else{
-                    echo"<p>Post not created RURURRU</p>";
-                    echo"<p>----->>>>> $threadID</p>";
-                    echo"<p>$postContent</p>";
-                    echo"<p>$user</p>";
-                    echo"<p>$date</p>";
                 }
                 $_SESSION["hasPosted"] = true;
             }
