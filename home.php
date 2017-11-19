@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Forum</title>
-    <?php
-    $currentPath = basename(__FILE__);
-    include_once("includeHeader.php");
-    include_once("menu.php");
-
-    ?>
+    <title>Create Thread</title>
+    <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
 
-<h1>
-    Forum
-</h1>
 <?php
+$currentPath = basename(_FILE_);
+include_once("menu.php");
+?>
 
+
+<div class="page-header col-md-offset-1">
+    <h1>Topics</h1>
+</div>
+<?php
 if($_SERVER["REQUEST_METHOD"]== "POST") {
     if(isset($_POST["create"])) {
         if(isset($_SESSION["hasPosted"])){
