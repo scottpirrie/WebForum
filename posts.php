@@ -53,7 +53,6 @@
         if(isset($_GET["threadID"])){
             $threadID = $_GET["threadID"];
             $_SESSION["threadID"] = $threadID;
-            echo "First run : ".$_SESSION["threadID"];
         }elseif (isset($_SESSION["threadID"])){
             $threadID = $_SESSION["threadID"];
         }
