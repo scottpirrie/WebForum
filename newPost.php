@@ -13,6 +13,9 @@
 <?php
 if($_SESSION["type"]==0){
     echo "<h2>You need to be logged in to create a post!</h2>";
+} elseif ($_SESSION['type'] == -1) {
+    echo "<h2>You do not have permission to post!</h2>";
+
 } else{
     $_SESSION["hasPosted"] = false;
     ?>

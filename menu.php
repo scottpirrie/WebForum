@@ -25,6 +25,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
             if (password_verify($loginPass, $row["password"])) {
                 //should be logged in now
                 $_SESSION['user'] = $row["username"];
+                $_SESSION['type'] = $row["type"];
             }
         }
     }
@@ -35,14 +36,17 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     }
 }
 
-$loginUser = cleanStr($_SESSION['user'], $conn);
-$sql = "SELECT * FROM `Login` WHERE username = '$loginUser'";
-$resUsers = $conn->query($sql);
 
-if ($resUsers->num_rows > 0) {
-    while ($row = $resUsers->fetch_assoc()) {
-        //should be logged in now
-        $_SESSION['type'] = $row["type"];
+if ($_SESSION['user'] != "") {
+    $loginUser = cleanStr($_SESSION['user'], $conn);
+    $sql = "SELECT * FROM `Login` WHERE username = '$loginUser'";
+    $resUsers = $conn->query($sql);
+
+    if ($resUsers->num_rows > 0) {
+        while ($row = $resUsers->fetch_assoc()) {
+            //should be logged in now
+            $_SESSION['type'] = $row["type"];
+        }
     }
 }
 
@@ -69,7 +73,7 @@ if ($resUsers->num_rows > 0) {
                     <?php
                     }
 
-                    if ($_SESSION['type'] > 0) {
+                    if ($_SESSION['type'] > 0 || $_SESSION['type'] == -1) {
                     ?>
                 <li class="nav-link<?php compareFile("me.php", $currentPath) ?>"><a href="me.php">My Account</a><?php
                     }
@@ -87,9 +91,7 @@ if ($resUsers->num_rows > 0) {
 
             <ul class="nav navbar-nav navbar-right">
                 <?php
-                $_SESSION['type'] = isset($_SESSION['type']) ? $_SESSION['type'] : 0;
-
-                if ($_SESSION['type'] > 0) {
+                if ($_SESSION['type'] > 0 || $_SESSION['type'] == -1) {
                     ?>
                     <li class="nav-item">
                         <form class="navbar-form" action="index.php" method="post">

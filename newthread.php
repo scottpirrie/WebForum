@@ -38,13 +38,22 @@ if ($_SESSION["type"] > 0) {
     </div>
 
     <?php
-} else { ?>
+} elseif($_SESSION["type"] == 0) { ?>
     <div class="container col-md-8 col-md-offset-2">
         <div class="panel panel-warning">
             <div class="panel-heading">Not logged in!</div>
             <div class="panel-body">You need to be logged in to create a thread!</div>
         </div>
     </div> <?php
+} elseif ($_SESSION["type"] == -1){?>
+    <div class="container col-md-8 col-md-offset-2">
+        <div class="panel panel-warning">
+            <div class="panel-heading">Banned!</div>
+            <div class="panel-body">You are banned!</div>
+        </div>
+    </div> <?php
+
+
 }
 ?>
 </body>

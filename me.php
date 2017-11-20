@@ -15,7 +15,7 @@ include_once("menu.php");
     <h1>My Account</h1>
 </div>
 <?php
-if ($_SESSION["type"] > 0) { ?>
+if ($_SESSION["type"] > 0 || $_SESSION["type"] < 0) { ?>
 
     <div class="container col-md-8 col-md-offset-2">
         <div class="panel panel-primary">
@@ -32,7 +32,17 @@ if ($_SESSION["type"] > 0) { ?>
                 <li class="list-group-item">
                     <div class="panel panel-default">
                         <div class="panel-heading">Privilege Level:</div>
-                        <div class="panel-body"><?php echo $_SESSION['type']?></div>
+                        <div class="panel-body"><?php
+                            if ($_SESSION['type'] == -1) {
+                                echo "BANNED";
+                            } elseif($_SESSION['type'] == 1){
+                                echo "Normal user";
+                            } elseif($_SESSION['type'] == 2){
+                                echo "Moderator";
+                            } elseif($_SESSION['type'] == 3){
+                                echo "Admin";
+                            }
+                            ?></div>
                     </div>
                 </li>
             </ul>

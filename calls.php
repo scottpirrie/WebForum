@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION["user"] = isset($_SESSION["user"]) ? $_SESSION["user"] : "";
-$_SESSION["type"] = isset($_SESSION["type"]) ? $_SESSION["type"] : 0;
+$_SESSION['type'] = 0;
 
 $conn = loadDB();
 
@@ -15,10 +15,7 @@ function loadDB()
     if ($conn->connect_error) {
         echo "Please refresh";
     }
-    if (!isset($_SESSION['type'])) {
-        $_SESSION['type'] = 0;
-        $_SESSION['user'] = "";
-    }
+
     return $conn;
 }
 
