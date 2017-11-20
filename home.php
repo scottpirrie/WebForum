@@ -33,73 +33,73 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
         }
     }
 }
-    if($_SERVER["REQUEST_METHOD"] == "GET"){
-        if(isset($_GET["nextpage"])){
-            $_SESSION["page"]++;
-        } elseif(isset($_GET["prevpage"])){
-            if($_SESSION["page"] > 1){
-                $_SESSION["page"]--;
-            }
-        } else{
-            $_SESSION["page"] = 1;
+if($_SERVER["REQUEST_METHOD"] == "GET"){
+    if(isset($_GET["nextpage"])){
+        $_SESSION["page"]++;
+    } elseif(isset($_GET["prevpage"])){
+        if($_SESSION["page"] > 1){
+            $_SESSION["page"]--;
         }
-
+    } else{
+        $_SESSION["page"] = 1;
     }
-    $sql = "SELECT * FROM `Threads`";
-    $result = $conn->query($sql);
-    echo "<table>";
-    echo "<tr>";
-    echo "<th>Threads</th>";
-    echo "<th>Creator</th>";
-    echo "<th>Date</th>";
-    echo "</tr>";
+
+}
+$sql = "SELECT * FROM `Threads`";
+$result = $conn->query($sql);
+echo "<table>";
+echo "<tr>";
+echo "<th>Threads</th>";
+echo "<th>Creator</th>";
+echo "<th>Date</th>";
+echo "</tr>";
 if ($result->num_rows > 0) {
-        $threadNum = $_SESSION["page"]*10;
-        while($row = $result->fetch_assoc()){
-            $out[] = $row;
-        }
-        $out[] = null;
-        for($i = $threadNum-10; $i< $threadNum; $i++) {
-
-            if($out[$i] == null){
-                $last = true;
-                break;
-            } else {
-                $last = false;
-            }
-            $threadID = $out[$i]["id"];
-            $threadName = $out[$i]["threadname"];
-            $date = $out[$i]["date"];
-            $creator = $out[$i]["creator"];
-
-            echo "<tr id=$threadID ondblclick=\"redirectPost(id)\">";
-            echo "<td>" . $threadName . "</td>";
-            echo "<td>" . $creator . "</td>";
-            echo "<td>" . $date . "</td>";
-            echo "</tr>";
-        }
+    $threadNum = $_SESSION["page"]*10;
+    while($row = $result->fetch_assoc()){
+        $out[] = $row;
     }
-    echo "</table>";
-    $page = $_SESSION["page"];
-    echo "<p>Page $page</p>"
-    ?>
-    <form method = "GET" action = "home.php"><?php
-        if($page > 1) {
-            ?>
-            <input type="submit" name="prevpage" value="Previous Page">
-            <?php
-        }
-        if(!$last) {
-            ?>
-            <input type="submit" name="nextpage" value="Next Page">
-            <?php
-        }
-        ?>
-    </form>
+    $out[] = null;
+    for($i = $threadNum-10; $i< $threadNum; $i++) {
 
-    <form method="GET" action = "newthread.php">
-        <input type ="submit" name="submit" value="Create New Thread"/>
-    </form>
+        if($out[$i] == null){
+            $last = true;
+            break;
+        } else {
+            $last = false;
+        }
+        $threadID = $out[$i]["id"];
+        $threadName = $out[$i]["threadname"];
+        $date = $out[$i]["date"];
+        $creator = $out[$i]["creator"];
+
+        echo "<tr id=$threadID ondblclick=\"redirectPost(id)\">";
+        echo "<td>" . $threadName . "</td>";
+        echo "<td>" . $creator . "</td>";
+        echo "<td>" . $date . "</td>";
+        echo "</tr>";
+    }
+}
+echo "</table>";
+$page = $_SESSION["page"];
+echo "<p>Page $page</p>"
+?>
+<form method = "GET" action = "home.php"><?php
+    if($page > 1) {
+        ?>
+        <input type="submit" name="prevpage" value="Previous Page">
+        <?php
+    }
+    if(!$last) {
+        ?>
+        <input type="submit" name="nextpage" value="Next Page">
+        <?php
+    }
+    ?>
+</form>
+
+<form method="GET" action = "newthread.php">
+    <input type ="submit" name="submit" value="Create New Thread"/>
+</form>
 
 </body>
 </html>
