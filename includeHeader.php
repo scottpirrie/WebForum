@@ -13,9 +13,24 @@
     }
 
     .verticalSpacer {
-
         margin-top: 15px;
         margin-bottom: 15px;
+    }
+
+    .verticalTopSpacer {
+        margin-top: 15px;
+    }
+
+    .verticalBottomSpacer {
+        margin-bottom: 15px;
+    }
+
+    .horizontalRightSpacer {
+        margin-right: 8px;
+    }
+
+    .horizontalLeftSpacer {
+        margin-left: 8px;
     }
 
     table {

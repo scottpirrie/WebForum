@@ -18,59 +18,125 @@ include_once("menu.php");
 <?php
 if ($_SESSION['type'] > 1) {
 
-    if (isset($_POST['clearLogin'])) {
+if (isset($_POST['clearLogin'])) {
 
-        $sql = "DELETE FROM `Login` WHERE username <> 'admin'";
-        $res = $conn->query($sql);
+    $sql = "DELETE FROM `Login` WHERE username <> 'admin'";
+    $res = $conn->query($sql);
 
-        if ($res) {
-            ?>
-            <div class="alert alert-warning">
-                <strong>User accounts wiped.</strong> (Except 'admin')
-            </div>
-        <?php } else {
+if ($res) {
+    ?>
+    <div class="alert alert-warning">
+        <strong>User accounts wiped.</strong> (Except 'admin')
+    </div>
+<?php } else {
 
-            ?>
-            <div class="alert alert-danger">
-                <strong>Failed to wipe user accounts; try again later.</strong>
-            </div>
-            <?php
+    ?>
+    <div class="alert alert-danger">
+        <strong>Failed to wipe user accounts; try again later.</strong>
+    </div>
+<?php
 
 
+}
+
+
+} elseif (isset($_POST['clearThreads'])) {
+
+
+    $sql = "DELETE FROM `Threads`";
+    $conn->query($sql);
+    $sql = "DELETE FROM `Posts`";
+    $res = $conn->query($sql);
+
+    if ($res) {
+    ?>
+        <div class="alert alert-warning">
+            <strong>Threads and posts wiped.</strong>
+        </div>
+    <?php } else {
+
+        ?>
+        <div class="alert alert-danger">
+            <strong>Failed to wipe threads; try again later.</strong>
+        </div>
+    <?php
+
+    }
+} elseif (isset($_POST['assign'])) {
+
+$targetUsername = isset($_POST['targetUsername']) ? $_POST['targetUsername'] : "";
+$targetRank = isset($_POST['selectPower']) ? $_POST['selectPower'] : "";
+
+$targetUsername = cleanStr($targetUsername, $conn);
+$successfulPrivilegeChange = false;
+$targetUserExists = true;
+if (strtoupper($targetUsername) == "ADMIN") {
+?>
+    <div class="alert alert-danger">
+        <strong>Admin is too stronk.</strong>
+    </div><?php
+} else {
+    $sql = "SELECT * FROM `Login` WHERE username = '$targetUsername'";
+    $resultSelect = $conn->query($sql);
+
+    if ($resultSelect->num_rows > 0) {
+        $sql = "UPDATE `Login` SET `type`= $targetRank WHERE username = '$targetUsername'";
+        $resultUpdate = $conn->query($sql);
+
+        if ($resultUpdate) {
+            $successfulPrivilegeChange = true;
         }
-
-
-    } elseif (isset($_POST['clearThreads'])) {
-
-
-        $sql = "DELETE FROM `Threads`";
-        $conn->query($sql);
-        $sql = "DELETE FROM `Posts`";
-        $res = $conn->query($sql);
-
-        if ($res) {
-            ?>
-            <div class="alert alert-warning">
-                <strong>Threads and posts wiped.</strong>
-            </div>
-        <?php } else {
-
-            ?>
-            <div class="alert alert-danger">
-                <strong>Failed to wipe threads; try again later.</strong>
-            </div>
-            <?php
-
-        }
-
-
-    } elseif (isset($_POST['assign'])) {
-
-
+    } else {
+        $targetUserExists = false;
     }
 
 
+    if ($targetRank == -1) {
+        $targetRank = "BANNED";
+    } elseif ($targetRank == 1) {
+        $targetRank = "Normal";
+    } elseif ($targetRank == 2) {
+        $targetRank = "Moderator";
+    }
+
+if ($successfulPrivilegeChange) { ?>
+
+    <div class="alert alert-success">
+        <strong>Specified user '<?php echo $_POST['targetUsername']?>' was changed to '<?php echo $targetRank?>'.</strong>
+    </div>
+<?php } else {
+
     ?>
+    <div class="alert alert-danger">
+        <strong>Failed to change rank of '<?php echo $_POST['targetUsername']?>' to '<?php echo $targetRank?>'.</strong>
+        <?php if (!$targetUserExists) {echo "User does not exist";} else {echo"Please try again later.";}?>
+    </div>
+<?php
+}
+
+}
+
+
+}
+elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
+    $sql = "KAPPA";
+    $res = $conn->query($sql);
+
+    if ($res) { ?>
+        <div class="alert alert-warning">
+            <strong>All users are now normal users.</strong> (Except 'admin')
+        </div>
+    <?php } else {
+
+        ?>
+        <div class="alert alert-danger">
+            <strong>Failed to set all users to normal accounts; try again later.</strong>
+        </div>
+    <?php
+    }
+}
+
+?>
     <div class="container col-md-8 col-md-offset-2">
         <div class="panel panel-primary">
             <div class="panel-heading">Admin Commands</div>
@@ -78,7 +144,51 @@ if ($_SESSION['type'] > 1) {
 
                 <li class="list-group-item">
                     <div class="panel panel-default">
-                        normal commands here
+                        <div class="panel-heading">Standard Commands:</div>
+                        <div class="panel-body">
+
+
+                            <form method="POST" action="administrative.php" class="form form-inline" name="assignRank">
+
+                                <label class="col-form-label col-md-4 " for="targetUsername">Set user rank:</label>
+
+                                <input class="form-control col-md-4 horizontalRightSpacer" id="targetUsername"
+                                       name="targetUsername"
+                                       placeholder="username"
+                                       required>
+
+
+                                <select class="form-control horizontalRightSpacer"
+                                        name="selectPower" id="selectPower">
+                                    <option value="1">Normal user</option>
+                                    <option value="2">Moderator</option>
+                                    <option value="-1">BAN THEM</option>
+                                </select>
+
+                                <input title="Assign specified user selected rank." class="btn btn-primary"
+                                       type="submit" name="assign" value="Assign Rank">
+
+
+                            </form>
+
+
+                            <div class="verticalSpacer"></div>
+
+
+                            <form class="form" method="POST" action="administrative.php"
+                                  name="setAllUserDefaultPrivilege">
+                                <div class="form-group">
+                                    <label class="col-md-4 col-form-label" for="clearLogin">Remove all admins:</label>
+                                    <input title="Set everyone to a normal user, excluding banned and 'admin'"
+                                           class="btn btn-warning"
+                                           type="submit" name="setAllUserDefaultPrivilege"
+                                           id="setAllUserDefaultPrivilege"
+                                           value="Remove all admins">
+                                </div>
+                            </form>
+
+
+                        </div>
 
                     </div>
                 </li>
@@ -125,19 +235,6 @@ if ($_SESSION['type'] > 1) {
         </div>
     </div>
 
-    <form method="POST" action="administrative.php" class="form" name="assignRank">
-
-
-        <input class="form-control" id="username" type=text name="target"
-               required>
-
-        <input class="form-control" id="passToBe" type=password name="newPassword" minlength="4"
-               maxlength="15" required>
-
-
-        <input class="btn btn-primary" type="submit" name="assign" value="Assign Rank">
-
-    </form>
 
 <?php } else { ?>
     <div class="container col-md-8 col-md-offset-2">
