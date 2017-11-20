@@ -26,7 +26,7 @@ if (isset($_POST['clearLogin'])) {
 if ($res) {
     ?>
     <div class="alert alert-warning">
-        <strong>User accounts wiped.</strong> (Except Admins - rank 3)
+        <strong>User accounts wiped.</strong> (Except Admins)
     </div>
 <?php } else {
 
@@ -124,7 +124,7 @@ elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
 
     if ($res) { ?>
         <div class="alert alert-warning">
-            <strong>All users are now normal users.</strong> (Except 'admin')
+            <strong>All users are now normal users.</strong> (Except Admins and Banned users.)
         </div>
     <?php } else {
 
@@ -175,23 +175,36 @@ elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
                             <div class="verticalSpacer"></div>
 
 
+                            <?php
+                            if ($_SESSION['type'] > 2) {
+
+                            ?>
+
                             <form class="form" method="POST" action="administrative.php"
                                   name="setAllUserDefaultPrivilege">
                                 <div class="form-group">
-                                    <label class="col-md-4 col-form-label" for="clearLogin">Remove all admins:</label>
-                                    <input title="Set everyone to a normal user, excluding banned and 'admin'"
+                                    <label class="col-md-4 col-form-label" for="clearLogin">Remove all Moderator powers:</label>
+                                    <input title="Set everyone to a normal user, excluding Admins and Banned users"
                                            class="btn btn-warning"
                                            type="submit" name="setAllUserDefaultPrivilege"
                                            id="setAllUserDefaultPrivilege"
-                                           value="Remove all admins">
+                                           value="Remove all Moderator Powers">
                                 </div>
                             </form>
+                            <?php
 
+
+                            }?>
 
                         </div>
 
                     </div>
                 </li>
+
+                <?php
+                if ($_SESSION['type'] > 2) {
+
+                ?>
                 <li class="list-group-item">
                     <div class="panel panel-danger">
                         <div class="panel-heading">NUCLEAR COMMANDS:</div>
@@ -229,6 +242,9 @@ elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
                     </div>
 
                 </li>
+                <?php
+
+                }?>
             </ul>
 
 

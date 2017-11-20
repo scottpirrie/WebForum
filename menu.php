@@ -24,7 +24,6 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         while ($row = $resUsers->fetch_assoc()) {
             if (password_verify($loginPass, $row["password"])) {
                 //should be logged in now
-                $_SESSION['type'] = $row["type"];
                 $_SESSION['user'] = $row["username"];
             }
         }
@@ -35,8 +34,20 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         <script>incorrectLogin()</script><?php
     }
 }
-?>
 
+$loginUser = cleanStr($_SESSION['user'], $conn);
+$sql = "SELECT * FROM `Login` WHERE username = '$loginUser'";
+$resUsers = $conn->query($sql);
+
+if ($resUsers->num_rows > 0) {
+    while ($row = $resUsers->fetch_assoc()) {
+        //should be logged in now
+        $_SESSION['type'] = $row["type"];
+    }
+}
+
+
+?>
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -70,6 +81,8 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                     } ?>
 
                 </li>
+
+                <li class="nav-link<?php compareFile("about.php", $currentPath) ?>"><a href="about.php">About</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
