@@ -104,7 +104,7 @@ if ($accountCreationSuccess) { ?>
 
                 <div class="form-group row">
                     <div class="col-xs-2">
-                        <input class="btn btn-primary" type="submit" name="create" value="Create Account"><br>
+                        <input class="btn btn-primary" type="submit" name="create" value="Create Account">
                     </div>
                 </div>
 
