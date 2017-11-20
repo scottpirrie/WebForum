@@ -21,8 +21,17 @@ User rankings: <br>
 0: Not logged in <br>
 1: Normal user <br>
 2: Moderator <br>
-3: Admin <br>
+3: Admin <br><br>
 
-bootstrap/3.3.7
+bootstrap ver. 3.3.7 <br><br> <br><br>
+example Accounts:
+
+BANNED: 'banuser' <br>
+Normal: 'normaluser' <br>
+Mod: 'moderatoruser'<br>
+Admin: 'admin' <br><br>
+
+all passwords are 1234
+
 </body>
 </html>
