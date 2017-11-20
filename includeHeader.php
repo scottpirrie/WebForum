@@ -13,6 +13,8 @@
     }
 
     .verticalSpacer {
+
+        
         margin-top: 15px;
         margin-bottom: 15px;
     }
