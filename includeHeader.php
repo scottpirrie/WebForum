@@ -12,6 +12,11 @@
         }
     }
 
+    .verticalSpacer {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
     table {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -23,9 +28,13 @@
         padding-right: 32px;
     }
 
-    tr:nth-child(even){background-color: #f2f2f2;}
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-    tr:hover {background-color: #ddd;}
+    tr:hover {
+        background-color: #ddd;
+    }
 
     th {
         padding-top: 12px;

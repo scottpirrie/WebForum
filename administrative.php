@@ -19,18 +19,50 @@ include_once("menu.php");
 if ($_SESSION['type'] > 1) {
 
     if (isset($_POST['clearLogin'])) {
-    ?><script>alert("NO LOGIN CLEAR");</script><?php
+
         $sql = "DELETE FROM `Login` WHERE username <> 'admin'";
-        $conn->query($sql);
+        $res = $conn->query($sql);
+
+        if ($res) {
+            ?>
+            <div class="alert alert-warning">
+                <strong>User accounts wiped.</strong> (Except 'admin')
+            </div>
+        <?php } else {
+
+            ?>
+            <div class="alert alert-danger">
+                <strong>Failed to wipe user accounts; try again later.</strong>
+            </div>
+            <?php
+
+
+        }
+
 
     } elseif (isset($_POST['clearThreads'])) {
 
-        ?><script>alert("FAK");</script><?php
 
         $sql = "DELETE FROM `Threads`";
         $conn->query($sql);
         $sql = "DELETE FROM `Posts`";
-        $conn->query($sql);
+        $res = $conn->query($sql);
+
+        if ($res) {
+            ?>
+            <div class="alert alert-warning">
+                <strong>Threads and posts wiped.</strong>
+            </div>
+        <?php } else {
+
+            ?>
+            <div class="alert alert-danger">
+                <strong>Failed to wipe threads; try again later.</strong>
+            </div>
+            <?php
+
+        }
+
 
     } elseif (isset($_POST['assign'])) {
 
@@ -41,11 +73,58 @@ if ($_SESSION['type'] > 1) {
     ?>
     <div class="container col-md-8 col-md-offset-2">
         <div class="panel panel-primary">
-            <div class="panel-heading">Welcome</div>
-            <div class="panel-body">Administrative Commands.</div>
+            <div class="panel-heading">Admin Commands</div>
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <div class="panel panel-default">
+                        normal commands here
+
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">NUCLEAR COMMANDS:</div>
+                        <div class="panel-body">
+
+
+
+                                <form class="form" method="POST" action="administrative.php"
+                                      name="clearLoginDB">
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-form-label" for="clearLogin">Delete all
+                                            accounts:</label>
+                                        <input title="Delete ALL accounts (excluding 'admin')"
+                                               class="btn btn-danger"
+                                               type="submit" name="clearLogin" id="clearLogin"
+                                               value="Clear Accounts DB">
+                                    </div>
+                                </form>
+
+
+                            <div class="verticalSpacer"></div>
+
+
+                                <form method="POST" action="administrative.php" class="form" name="clearThreads">
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-form-label" for="clearThreads">Delete all
+                                            threads/posts:</label>
+                                        <input title="Delete ALL threads and posts therein." class="btn btn-danger"
+                                               type="submit" name="clearThreads" id="clearThreads"
+                                               value="Clear All Threads DB">
+                                    </div>
+                                </form>
+
+                        </div>
+
+
+                    </div>
+
+                </li>
+            </ul>
+
         </div>
     </div>
-
 
     <form method="POST" action="administrative.php" class="form" name="assignRank">
 
@@ -60,25 +139,6 @@ if ($_SESSION['type'] > 1) {
         <input class="btn btn-primary" type="submit" name="assign" value="Assign Rank">
 
     </form>
-
-
-    <br><br><br>
-
-    <h2>NUCLEAR OPTIONS</h2>
-    <form method="POST" action="administrative.php" class="form" name="clearLoginDB">
-
-        <input title="Delete ALL accounts (excluding 'admin')" class="btn btn-primary" type="submit" name="clearLogin"
-               value="Clear Accounts DB">
-
-    </form>
-
-    <form method="POST" action="administrative.php" class="form" name="clearThreads">
-
-        <input title="Delete ALL threads and posts therein." class="btn btn-primary" type="submit" name="clearAccounts"
-               value="Clear All Threads DB">
-
-    </form>
-
 
 <?php } else { ?>
     <div class="container col-md-8 col-md-offset-2">
