@@ -20,13 +20,13 @@ if ($_SESSION['type'] > 1) {
 
 if (isset($_POST['clearLogin'])) {
 
-    $sql = "DELETE FROM `Login` WHERE username <> 'admin'";
+    $sql = "DELETE FROM `Login` WHERE type < 3";
     $res = $conn->query($sql);
 
 if ($res) {
     ?>
     <div class="alert alert-warning">
-        <strong>User accounts wiped.</strong> (Except 'admin')
+        <strong>User accounts wiped.</strong> (Except Admins - rank 3)
     </div>
 <?php } else {
 
@@ -119,7 +119,7 @@ if ($successfulPrivilegeChange) { ?>
 
 }
 elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
-    $sql = "KAPPA";
+    $sql = "UPDATE `Login` SET `type`= 1 WHERE type < 3 AND type >= 0";
     $res = $conn->query($sql);
 
     if ($res) { ?>
