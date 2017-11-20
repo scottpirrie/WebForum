@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Create Thread</title>
+    <title>Admin</title>
     <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
 
 <?php
-$currentPath = basename(_FILE_);
+$currentPath = basename(__FILE__);
 include_once("menu.php");
 ?>
-
 
 <div class="page-header col-md-offset-1">
     <h1>Topics</h1>
 </div>
+
 <?php
 if($_SERVER["REQUEST_METHOD"]== "POST") {
     if(isset($_POST["create"])) {
