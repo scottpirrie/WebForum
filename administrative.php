@@ -100,9 +100,6 @@ if ($_SESSION['type'] > 1) {
                                 </div>
                             </form>
 
-
-
-                            
                             <div class="verticalSpacer"></div>
 
 
