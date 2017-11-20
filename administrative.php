@@ -88,32 +88,33 @@ if ($_SESSION['type'] > 1) {
                         <div class="panel-body">
 
 
+                            <form class="form" method="POST" action="administrative.php"
+                                  name="clearLoginDB">
+                                <div class="form-group">
+                                    <label class="col-md-4 col-form-label" for="clearLogin">Delete all
+                                        accounts:</label>
+                                    <input title="Delete ALL accounts (excluding 'admin')"
+                                           class="btn btn-danger"
+                                           type="submit" name="clearLogin" id="clearLogin"
+                                           value="Clear Accounts DB">
+                                </div>
+                            </form>
 
-                                <form class="form" method="POST" action="administrative.php"
-                                      name="clearLoginDB">
-                                    <div class="form-group">
-                                        <label class="col-md-4 col-form-label" for="clearLogin">Delete all
-                                            accounts:</label>
-                                        <input title="Delete ALL accounts (excluding 'admin')"
-                                               class="btn btn-danger"
-                                               type="submit" name="clearLogin" id="clearLogin"
-                                               value="Clear Accounts DB">
-                                    </div>
-                                </form>
 
 
+                            
                             <div class="verticalSpacer"></div>
 
 
-                                <form method="POST" action="administrative.php" class="form" name="clearThreads">
-                                    <div class="form-group">
-                                        <label class="col-md-4 col-form-label" for="clearThreads">Delete all
-                                            threads/posts:</label>
-                                        <input title="Delete ALL threads and posts therein." class="btn btn-danger"
-                                               type="submit" name="clearThreads" id="clearThreads"
-                                               value="Clear All Threads DB">
-                                    </div>
-                                </form>
+                            <form method="POST" action="administrative.php" class="form" name="clearThreads">
+                                <div class="form-group">
+                                    <label class="col-md-4 col-form-label" for="clearThreads">Delete all
+                                        threads/posts:</label>
+                                    <input title="Delete ALL threads and posts therein." class="btn btn-danger"
+                                           type="submit" name="clearThreads" id="clearThreads"
+                                           value="Clear All Threads DB">
+                                </div>
+                            </form>
 
                         </div>
 
@@ -122,8 +123,6 @@ if ($_SESSION['type'] > 1) {
 
                 </li>
             </ul>
-
-
 
 
         </div>
