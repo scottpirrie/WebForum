@@ -27,19 +27,19 @@ if ($_SESSION["type"] > 0) {
             <div class="panel-body">
                 <form id="create-thread" class="form" method="post" action="home.php">
 
-                    <div class="form-group">
+                    <div class="form-group  col-md-4 ">
                         <label for="threadName">Thread name:</label>
                         <input class="form-control" type="text" id="threadName" name="threadName" required
                                minlength="2" maxlength="30">
                     </div>
 
-                    <div class="form-group ">
+                    <div class="form-group  col-md-12 ">
                         <label for="post">Post:</label>
                         <textarea class="form-control" rows="15"  name="post"
                                   form="create-thread"></textarea><br>
 
             </div>
-                    <div class="form-group">
+                    <div class="form-group  col-md-12 ">
                         <input type="submit" name="create" value="Create!"></div>
                 </form>
             </div>
