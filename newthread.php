@@ -25,10 +25,13 @@ if ($_SESSION["type"] > 0) {
         <div class="panel panel-default">
             <div class="panel-heading">Create a new thread topic.</div>
             <div class="panel-body">
-                <form class="form-inline" method="post" action="home.php">
+                <form id = "create-thread" class="form-inline" method="post" action="home.php">
 
-                    <div class="text-center"><label class="col-form-label" for="threadName">Thread name:</label>
-                        <input type="text" id="threadName" name="threadName" required minlength="2" maxlength="30">
+                    <div class="text-center">
+                        <label class="col-form-label" for="threadName">Thread name:</label>
+                        <input type="text" id="threadName" name="threadName" required minlength="2" maxlength="30"><br>
+                        <label class="col-form-label" for="post">Post:</label>
+                        <textarea name="post" form="create-thread"></textarea><br>
                         <input type="submit" name="create" value="Create!">
                     </div>
 

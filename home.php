@@ -25,12 +25,26 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
         if(isset($_SESSION["hasPosted"])){
             if($_SESSION["hasPosted"]==false){
                 $threadName = cleanStr($_POST["threadName"], $conn);
+                $post = cleanStr($_POST["post"], $conn);
                 $user = $_SESSION["user"];
                 $date = date('Y-m-d H:m:s', time());
                 $sql = "INSERT INTO `Threads` (`threadname`, `creator`, `date`) VALUES ('$threadName', '$user', '$date')";
 
                 if($conn->query($sql)){
                     echo "<p>Thread created successfully</p>";
+                    $sql = "SELECT `id` FROM `Threads` WHERE `threadname` = '$threadName' AND `creator` = '$user' AND `date` = '$date'";
+                    $res = $conn->query($sql);
+                    if($res->num_rows>0){
+                        $row = $res->fetch_row();
+                        $threadID = $row[0];
+                        echo $post;
+                        $sql = "INSERT INTO `Posts`(`threadid`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$post')";
+                        if($conn->query($sql)){
+                            echo "<p>Post added to thread successfully!</p>";
+                        }
+
+                    }
+
                 }
                 $_SESSION["hasPosted"] = true;
             }
