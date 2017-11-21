@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <title>Admin</title>
     <?php include_once("includeHeader.php"); ?>
@@ -12,7 +12,7 @@ include_once("menu.php");
 ?>
 
 <div class="page-header col-md-offset-1">
-    <h1>Topics</h1>
+    <h1>Search Results</h1>
 </div>
 
 <form action="searchResults.php" method="get">
@@ -20,37 +20,12 @@ include_once("menu.php");
 </form>
 
 <?php
-if($_SERVER["REQUEST_METHOD"]== "POST") {
-    if(isset($_POST["create"])) {
-        if(isset($_SESSION["hasPosted"])){
-            if($_SESSION["hasPosted"]==false){
-                $threadName = cleanStr($_POST["threadName"], $conn);
-                $user = $_SESSION["user"];
-                $date = date('Y-m-d H:m:s', time());
-                $sql = "INSERT INTO `Threads` (`threadname`, `creator`, `date`) VALUES ('$threadName', '$user', '$date')";
+strip_tags($search = isset($_GET["searchText"]) ? $_GET["searchText"] : "");
 
-                if($conn->query($sql)){
-                    echo "<p>Thread created successfully</p>";
-                }
-                $_SESSION["hasPosted"] = true;
-            }
-        }
-    }
-}
-if($_SERVER["REQUEST_METHOD"] == "GET"){
-    if(isset($_GET["nextpage"])){
-        $_SESSION["page"]++;
-    } elseif(isset($_GET["prevpage"])){
-        if($_SESSION["page"] > 1){
-            $_SESSION["page"]--;
-        }
-    } else{
-        $_SESSION["page"] = 1;
-    }
-
-}
-$sql = "SELECT * FROM `Threads`";
+$sql = "SELECT * FROM `Threads` WHERE `threadname` LIKE '%".mysqli_real_escape_string($conn, $search)."%'";
 $result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
 echo "<table>";
 echo "<tr>";
 echo "<th>Threads</th>";
@@ -94,16 +69,11 @@ echo "<p>Page $page</p>"
         <?php
     }
     if(!$last) {
-        ?>
-        <input type="submit" name="nextpage" value="Next Page">
-        <?php
-    }
     ?>
-</form>
-
-<form method="GET" action = "newthread.php">
-    <input type ="submit" name="submit" value="Create New Thread"/>
-</form>
-
-</body>
-</html>
+    <input type="submit" name="nextpage" value="Next Page">
+<?php
+}
+} else {
+    ?> <p>No Results found</p> <?php
+}
+?>
