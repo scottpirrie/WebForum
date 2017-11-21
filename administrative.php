@@ -183,7 +183,7 @@ elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
                             <form class="form" method="POST" action="administrative.php"
                                   name="setAllUserDefaultPrivilege">
                                 <div class="form-group">
-                                    <label class="col-md-4 col-form-label" for="clearLogin">Remove all Moderator powers:</label>
+                                    <label class="col-md-4 col" for="clearLogin">Remove all Moderator powers:</label>
                                     <input title="Set everyone to a normal user, excluding Admins and Banned users"
                                            class="btn btn-warning"
                                            type="submit" name="setAllUserDefaultPrivilege"
@@ -214,7 +214,7 @@ elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
                             <form class="form" method="POST" action="administrative.php"
                                   name="clearLoginDB">
                                 <div class="form-group">
-                                    <label class="col-md-4 col-form-label" for="clearLogin">Delete all
+                                    <label class="col-md-4" for="clearLogin">Delete all
                                         accounts:</label>
                                     <input title="Delete ALL accounts (excluding 'admin')"
                                            class="btn btn-danger"
@@ -228,7 +228,7 @@ elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
 
                             <form method="POST" action="administrative.php" class="form" name="clearThreads">
                                 <div class="form-group">
-                                    <label class="col-md-4 col-form-label" for="clearThreads">Delete all
+                                    <label class="col-md-4" for="clearThreads">Delete all
                                         threads/posts:</label>
                                     <input title="Delete ALL threads and posts therein." class="btn btn-danger"
                                            type="submit" name="clearThreads" id="clearThreads"

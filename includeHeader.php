@@ -5,11 +5,77 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
+
+
+    /* UTTER FUKIN MASTERPIECE OF CSS*/
+    .navbar .nav > li > a {
+        color: lawngreen;
+    }
+
+    body {
+        font-family: Impact, Charcoal, sans-serif;
+        color: lawngreen;
+        background-color: hotpink;
+
+    }
+
+    #navbar ul li a {
+        color: lawngreen;
+    }
+
+    .navbar {
+
+        color: blanchedalmond;
+        background-color: yellow;
+    }
+
+    .navbar-header {
+
+        color: blanchedalmond;
+        background-color: yellow;
+    }
+
+    .nav-link {
+
+        color: white;
+        background-color: yellow;
+    }
+
+    .nav-item {
+
+        color: blanchedalmond;
+        background-color: yellow;
+    }
+
+    .navbar-form {
+
+        color: limegreen;
+    }
+
+    .navbar a {
+
+        color: lawngreen !important;
+    }
+
+    .navbar .nav > .active > a {
+        background: orange;
+    }
+
+    /* Essential */
+
     @media (max-width: 767px) {
         .navbar-nav {
             margin: 0;
             padding: 0;
         }
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .align-top {
+        vertical-align: top;
     }
 
     .verticalSpacer {
@@ -33,8 +99,9 @@
         margin-left: 8px;
     }
 
+    /*Table only, will re-write if needed*/
     table {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
         border-collapse: collapse;
     }
 
