@@ -22,6 +22,7 @@ include_once("menu.php");
 <?php
 strip_tags($search = isset($_GET["searchText"]) ? $_GET["searchText"] : "");
 
+if ($search != "") {
 $sql = "SELECT * FROM `Threads` WHERE `threadname` LIKE '%".mysqli_real_escape_string($conn, $search)."%'";
 $result = $conn->query($sql);
 
@@ -69,9 +70,12 @@ echo "<p>Page $page</p>"
         <?php
     }
     if(!$last) {
-    ?>
-    <input type="submit" name="nextpage" value="Next Page">
-<?php
+        ?>
+        <input type="submit" name="nextpage" value="Next Page">
+        <?php
+    }
+    } else {
+    ?> <p>No Results found</p> <?php
 }
 } else {
     ?> <p>No Results found</p> <?php
