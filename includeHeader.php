@@ -13,7 +13,7 @@
     }
 
     body {
-        font-family: Impact, Charcoal, sans-serif;
+        font-family: Arial, Charcoal, sans-serif;
         color: lawngreen;
         background-color: hotpink;
 

@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
                 $post = cleanStr($_POST["post"], $conn);
                 $user = $_SESSION["user"];
                 $date = date('Y-m-d H:m:s', time());
-                $sql = "INSERT INTO `Threads` (`threadname`, `creator`, `date`) VALUES ('$threadName', '$user', '$date')";
+                $sql = "INSERT INTO `Threads` (`threadname`, `creator`, `date`, `datelast`, `topic`) VALUES ('$threadName', '$user', '$date', '$date', 0)";
 
                 if($conn->query($sql)){
                     echo "<p>Thread created successfully</p>";
@@ -69,17 +69,17 @@ echo "<table>";
 echo "<tr>";
 echo "<th>Threads</th>";
 echo "<th>Creator</th>";
-echo "<th>Date</th>";
+echo "<th>Last Updated</th>";
 echo "</tr>";
 if ($result->num_rows > 0) {
-    $threadNum = $_SESSION["page"]*10;
-    while($row = $result->fetch_assoc()){
+    $threadNum = $_SESSION["page"] * 10;
+    while ($row = $result->fetch_assoc()) {
         $out[] = $row;
     }
     $out[] = null;
-    for($i = $threadNum-10; $i< $threadNum; $i++) {
+    for ($i = $threadNum - 10; $i < $threadNum; $i++) {
 
-        if($out[$i] == null){
+        if ($out[$i] == null) {
             $last = true;
             break;
         } else {
@@ -87,7 +87,7 @@ if ($result->num_rows > 0) {
         }
         $threadID = $out[$i]["id"];
         $threadName = $out[$i]["threadname"];
-        $date = $out[$i]["date"];
+        $date = $out[$i]["datelast"];
         $creator = $out[$i]["creator"];
 
         echo "<tr id=$threadID ondblclick=\"redirectPost(id)\">";
@@ -96,22 +96,23 @@ if ($result->num_rows > 0) {
         echo "<td>" . $date . "</td>";
         echo "</tr>";
     }
+
+    echo "</table>";
+    $page = $_SESSION["page"];
+    echo "<p>Page $page</p>"
+    ?>
+    <form method="GET" action="home.php"><?php
+        if ($page > 1) {
+            ?>
+            <input type="submit" name="prevpage" value="Previous Page">
+            <?php
+        }
+        if (!$last) {
+            ?>
+            <input type="submit" name="nextpage" value="Next Page">
+            <?php
+        }
 }
-echo "</table>";
-$page = $_SESSION["page"];
-echo "<p>Page $page</p>"
-?>
-<form method = "GET" action = "home.php"><?php
-    if($page > 1) {
-        ?>
-        <input type="submit" name="prevpage" value="Previous Page">
-        <?php
-    }
-    if(!$last) {
-        ?>
-        <input type="submit" name="nextpage" value="Next Page">
-        <?php
-    }
     ?>
 </form>
 
