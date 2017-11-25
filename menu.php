@@ -65,7 +65,7 @@ if ($_SESSION['user'] != "") {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="nav-link<?php compareFile("home.php", $currentPath) ?>"><a href="home.php">Topics</a></li>
+                <li class="nav-link<?php compareFile("topics.php", $currentPath) ?>"><a href="topics.php">Topics</a></li>
                 <?php if ($_SESSION['type'] == 0) {
                 ?>
                 <li class="nav-link<?php compareFile("register.php", $currentPath) ?>"><a

@@ -56,15 +56,6 @@ function logOff()
             "Details did not correspond to any known account.")
     }
 
-    function usernameTaken() {
-        alert("Username is already taken.")
-    }
-
-    function accountCreated() {
-        alert("Account sucessfully created; attempting to redirect." + "\n" +
-            "(In the event of failure; please manually navigate.)")
-    }
-
     function redirect() {
         window.location = "home.php";
     }

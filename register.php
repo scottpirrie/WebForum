@@ -21,40 +21,48 @@ include_once("menu.php");
 $accountCreationSuccess = false;
 $usernameTaken = false;
 if (isset($_POST["create"])) {
-    $createUser = cleanStr($_POST["newUsername"], $conn);
-    $createPass = password_hash($_POST["newPassword"], PASSWORD_BCRYPT);
-    $accountCreationSuccess = true;
+    if ($_POST["newPassword"] != $_POST["newPasswordRepeat"]) {?>
+        <div class="alert alert-danger">
+            <strong>Passwords did not match.</strong>
+        </div> <?php
+        $accountCreationSuccess = false;
+    } else {
+        $uncleanedUser = $_POST['newUsername'];
+        $createUser = cleanStr($_POST["newUsername"], $conn);
+        $createPass = password_hash($_POST["newPassword"], PASSWORD_BCRYPT);
+        $accountCreationSuccess = true;
 
-    $sql = "SELECT username FROM `Login`";
-    $res = $conn->query($sql);
-    if ($res->num_rows > 0) {
-        while ($row = $res->fetch_assoc()) {
-            if (strtoupper($row["username"]) == strtoupper($createUser)) {
-                $usernameTaken = true;
-                $accountCreationSuccess = false;
-                break;
+        $sql = "SELECT username FROM `Login`";
+        $res = $conn->query($sql);
+        if ($res->num_rows > 0) {
+            while ($row = $res->fetch_assoc()) {
+                if (strtoupper($row["username"]) == strtoupper($createUser)) {
+                    $usernameTaken = true;
+                    $accountCreationSuccess = false;
+                    break;
+                }
             }
         }
     }
-
     if ($accountCreationSuccess) {
         $sql = "INSERT INTO `Login` (`username`, `password`, `type`) VALUES ('$createUser', '$createPass', '2')";
         $conn->query($sql);
 
         /*todo change privilege level*/
-        $_SESSION['user'] = $createUser;
+        $_SESSION['user'] = $uncleanedUser;
         $_SESSION['type'] = 2;
         ?>
 
         <script>
-            accountCreated();
             redirect();
         </script> <?php
     }
 }
 
 if ($usernameTaken) { ?>
-    <script>usernameTaken();</script> <?php
+    <div class="alert alert-danger">
+        <strong>Username taken.</strong>
+    </div> <?php
 }
 
 
@@ -101,6 +109,14 @@ if ($accountCreationSuccess) { ?>
                            maxlength="15" required>
 
                 </div>
+                <div class="form-group row">
+
+                    <label class="col-sm-8 col-form-label" for="passToBeRepeat">Repeat Password:</label>
+                    <input class="form-control" id="passToBeRepeat" type=password name="newPasswordRepeat" minlength="4"
+                           maxlength="15" required>
+
+                </div>
+
 
                 <div class="form-group row">
                     <div class="col-xs-2">

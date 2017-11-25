@@ -15,23 +15,23 @@ include_once("menu.php");
     <h1>About</h1>
 </div>
 
+<div class="container-fluid">User rankings: <br>
+    -1: BANNED <br>
+    0: Not logged in <br>
+    1: Normal user <br>
+    2: Moderator <br>
+    3: Admin <br><br>
 
-User rankings: <br>
--1: BANNED <br>
-0: Not logged in <br>
-1: Normal user <br>
-2: Moderator <br>
-3: Admin <br><br>
+    bootstrap ver. 3.3.7 <br><br> <br><br>
+    example Accounts:
 
-bootstrap ver. 3.3.7 <br><br> <br><br>
-example Accounts:
+    BANNED: 'banuser' <br>
+    Normal: 'normaluser' <br>
+    Mod: 'moderatoruser'<br>
+    Admin: 'admin' <br><br>
 
-BANNED: 'banuser' <br>
-Normal: 'normaluser' <br>
-Mod: 'moderatoruser'<br>
-Admin: 'admin' <br><br>
+    all passwords are 1234</div>
 
-all passwords are 1234
 
 </body>
 </html>
