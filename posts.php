@@ -28,6 +28,8 @@
 
                     if($conn->query($sql)){
                         echo "<p>Post created successfully</p>";
+                        $sql = "UPDATE `Threads` SET `datelast` = '$date' WHERE `id` = '$threadID'";
+                        $conn->query($sql);
                     }else{
                         echo"<p>Post not created. An error has occurred.</p>";
                     }

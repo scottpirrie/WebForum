@@ -73,6 +73,13 @@ function logOff()
         window.location = "posts.php?threadID="+id;
     }
 
+    function redirectThread(id){
+        window.location = "home.php?topicID=" + id;
+    }
+    function redirectTopics(){
+        window.location = "topics.php";
+    }
+
     function checkUsernameSpaces() {
         var attemptedName = document.forms["register"]["newUsername"].value;
 
