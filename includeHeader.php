@@ -6,60 +6,50 @@
 
 <style>
 
-
-    /* UTTER FUKIN MASTERPIECE OF CSS*/
-    .navbar .nav > li > a {
-        color: lawngreen;
+    body{
+        color: #414141;
+        font-family: Tahoma, Geneva, sans-serif;
+        background-color: #fffcfc;
     }
 
-    body {
-        font-family: Impact, Charcoal, sans-serif;
-        color: lawngreen;
-        background-color: hotpink;
-
-    }
-
-    #navbar ul li a {
-        color: lawngreen;
-    }
-
-    .navbar {
-
-        color: blanchedalmond;
-        background-color: yellow;
-    }
-
-    .navbar-header {
-
-        color: blanchedalmond;
-        background-color: yellow;
-    }
-
+    .navbar,
+    .navbar-header,
+    .nav-item,
     .nav-link {
-
-        color: white;
-        background-color: yellow;
+        background-color: #E6E4FF;
     }
 
-    .nav-item {
-
-        color: blanchedalmond;
-        background-color: yellow;
+    .navbar-toggle {
+        background-color: #beb9f7;
     }
 
-    .navbar-form {
-
-        color: limegreen;
+    .navbar-inverse .navbar-brand,
+    .navbar-inverse .navbar-nav > li > a {
+        color:#46264C
     }
 
-    .navbar a {
-
-        color: lawngreen !important;
+    .navbar-inverse .navbar-brand:hover,
+    .navbar-inverse .navbar-brand:focus {
+        color: black;
     }
 
-    .navbar .nav > .active > a {
-        background: orange;
+    .navbar-inverse .navbar-nav > li > a:hover,
+    .navbar-inverse .navbar-nav > li > a:focus {
+        color: #C73B2E;
     }
+
+    .navbar-inverse .navbar-nav > .active > a,
+    .navbar-inverse .navbar-nav > .active > a:hover,
+    .navbar-inverse .navbar-nav > .active > a:focus {
+        color: #46264C;
+        background-color: #F5EEC8;
+    }
+
+    .navbar-inverse .navbar-toggle {
+        border-color: #C73B2E;
+    }
+
+
 
     /* Essential */
 
@@ -126,4 +116,5 @@
         background-color: #4CAF50;
         color: white;
     }
+
 </style>
