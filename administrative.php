@@ -42,22 +42,36 @@ if ($res) {
 
 } elseif (isset($_POST['clearThreads'])) {
 
+    $success = true;
 
     $sql = "DELETE FROM `Threads`";
-    $conn->query($sql);
+    $res = $conn->query($sql);
+    if (!$res) {
+        $success = false;
+    }
+
     $sql = "DELETE FROM `Posts`";
     $res = $conn->query($sql);
+    if (!$res) {
+        $success = false;
+    }
 
-    if ($res) {
+    $sql = "DELETE FROM `Topics`";
+    $res = $conn->query($sql);
+    if (!$res) {
+        $success = false;
+    }
+
+    if ($success) {
     ?>
         <div class="alert alert-warning">
-            <strong>Threads and posts wiped.</strong>
+            <strong>Topics, Threads and Posts wiped.</strong>
         </div>
     <?php } else {
 
         ?>
         <div class="alert alert-danger">
-            <strong>Failed to wipe threads; try again later.</strong>
+            <strong>Failed to wipe topics and contents; try again later.</strong>
         </div>
     <?php
 
@@ -229,7 +243,7 @@ elseif (isset($_POST['setAllUserDefaultPrivilege'])) {
                             <form method="POST" action="administrative.php" class="form" name="clearThreads">
                                 <div class="form-group">
                                     <label class="col-md-4" for="clearThreads">Delete all
-                                        threads/posts:</label>
+                                        topics & content:</label>
                                     <input title="Delete ALL threads and posts therein." class="btn btn-danger"
                                            type="submit" name="clearThreads" id="clearThreads"
                                            value="Clear All Threads DB">
