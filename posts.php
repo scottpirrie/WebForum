@@ -25,7 +25,6 @@
                 if($_SESSION["hasPosted"]==false){
                     $postContent = cleanStr($_POST["postContent"], $conn); //Do we want to clean the post??
                     $threadID = $_SESSION["threadID"];
-                    echo "BAD 2? STORE : ".$_SESSION["threadID"];
                     $user = $_SESSION["user"];
                     $date = date('Y-m-d H:m:s', time());
                     $sql = "INSERT INTO `Posts`(`threadid`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$postContent')";
@@ -64,7 +63,10 @@
         }
     }else{
         $threadID = $_SESSION["threadID"];
-        echo "BAD 1? STORE : ".$_SESSION["threadID"];
+    }
+
+    if(!isset($threadID)) {
+        ?><script> redirectTopics();</script><?php
     }
 
     $sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
@@ -120,6 +122,9 @@
         }
     ?>
     </form>
+</div>
+
+<div>
     <form name="newPost" method="POST" action = "newPost.php">
         <input type ="submit" name="submit" value="Create new post"/>
     </form>
