@@ -6,7 +6,7 @@
 
 <style>
 
-    body{
+    body {
         color: #414141;
         font-family: Tahoma, Geneva, sans-serif;
         background-color: #fffcfc;
@@ -25,7 +25,7 @@
 
     .navbar-inverse .navbar-brand,
     .navbar-inverse .navbar-nav > li > a {
-        color:#46264C
+        color: #46264C
     }
 
     .navbar-inverse .navbar-brand:hover,
@@ -48,8 +48,6 @@
     .navbar-inverse .navbar-toggle {
         border-color: #C73B2E;
     }
-
-
 
     /* Essential */
 
@@ -91,14 +89,21 @@
 
     /*Table only, will re-write if needed*/
     table {
-
+        word-wrap: break-word;
         border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
-
+    
     td, th {
         border: 1px solid #ddd;
         padding-left: 8px;
         padding-right: 32px;
+        style = "width: 90px;"
+        
+        word-wrap: break-word;
     }
 
     tr:nth-child(even) {

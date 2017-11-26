@@ -15,7 +15,7 @@ include_once("menu.php");
     <h1>About</h1>
 </div>
 
-<div class="container-fluid">User rankings: <br>
+<div class="container col-md-8 col-md-offset-2">"  User rankings: <br>
     -1: BANNED <br>
     0: Not logged in <br>
     1: Normal user <br>

@@ -14,7 +14,11 @@
 <h1>
     Forum
 </h1>
+
+<div class="container-fluid">
 <?php
+
+
     if($_SERVER["REQUEST_METHOD"]== "POST") {
         if(isset($_POST["createPost"])) {
             if(isset($_SESSION["hasPosted"])){
@@ -119,6 +123,6 @@
     <form name="newPost" method="POST" action = "newPost.php">
         <input type ="submit" name="submit" value="Create new post"/>
     </form>
-
+</div>
 </body>
 </html>
