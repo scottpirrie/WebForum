@@ -27,7 +27,7 @@ if(isset($_GET['topicID'])){
                 <div class="panel panel-default">
                     <div class="panel-heading">Create a new thread topic.</div>
                     <div class="panel-body">
-                        <form id="create-thread" class="form" method="post" action="home.php">
+                        <form id="create-thread" class="form" method="post" action="threads.php">
 
                             <div class="form-group  col-md-4 ">
                                 <label class="col-form-label" for="threadName">Thread name:</label>

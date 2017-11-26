@@ -104,7 +104,7 @@ if ($_SESSION['user'] != "") {
                     ?>
                     <li class="nav-item">
                         <form class="navbar-form" action="<?php if ($currentPath == "register.php") {
-                            echo "home.php";
+                            echo "threads.php";
                         } else {
                             echo $currentPath;
                         }

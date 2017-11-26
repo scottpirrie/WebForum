@@ -51,7 +51,7 @@ if($_SESSION["type"]==0){ ?>
                 <form id = "postForm" class="form" method="post" action="posts.php">
                     <div class="form-group  col-md-12 ">
                         <label class="col-form-label" for="post">Post:</label>
-                        <textarea class="form-control" rows="20" form="postForm" name="postContent" form="create-thread"></textarea><br>
+                        <textarea class="form-control" rows="20" form="postForm" name="postContent" form="create-thread" maxlength="1000" required></textarea><br>
                     </div>
 
                     <div class="form-group  col-md-2 ">

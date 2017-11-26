@@ -57,7 +57,7 @@ function logOff()
     }
 
     function redirect() {
-        window.location = "home.php";
+        window.location = "threads.php";
     }
 
     function redirectPost(id) {
@@ -65,7 +65,7 @@ function logOff()
     }
 
     function redirectThread(id){
-        window.location = "home.php?topicID=" + id;
+        window.location = "threads.php?topicID=" + id;
     }
     function redirectTopics(){
         window.location = "topics.php";

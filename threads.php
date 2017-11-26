@@ -112,7 +112,7 @@ if($result = $conn->query($sql)) {
         $page = $_SESSION["page"];
         echo "<p>Page $page</p>"
         ?>
-        <form method="GET" action="home.php"><?php
+        <form method="GET" action="threads.php"><?php
             if ($page > 1) {
                 ?>
                 <input type="submit" name="prevpage" value="Previous Page">
