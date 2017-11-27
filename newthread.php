@@ -18,7 +18,9 @@ include_once("menu.php");
 
 <?php
 
-if(isset($_GET['topicID'])){
+
+
+if(isset($_SESSION['topicID'])){
     if(isset($_GET['submit'])) {
         if ($_SESSION["type"] > 0) {
             $_SESSION["hasPosted"] = false; ?>
@@ -72,7 +74,7 @@ if(isset($_GET['topicID'])){
         echo "<script> redirectThread(id);</script>";
     }
 } else{
-    echo "<script> redirectTopics;</script>";
+    echo "<script> redirectTopics();</script>";
 }
 ?>
 </body>

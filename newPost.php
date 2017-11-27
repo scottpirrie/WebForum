@@ -17,6 +17,11 @@ include_once("menu.php");
 </div>
 
 <?php
+
+if(!isset($_SESSION['threadID'])){
+    echo "<script> redirectTopics();</script>";
+}
+
 if($_SESSION["type"]==0){ ?>
     <div class="container col-md-8 col-md-offset-2">
         <div class="panel panel-warning">
