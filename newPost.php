@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Create Post</title>
+    <title>Register</title>
     <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
@@ -13,7 +13,7 @@ include_once("menu.php");
 
 
 <div class="page-header col-md-offset-1">
-    <h1>Create Post</h1>
+    <h1>New Post</h1>
 </div>
 
 <?php

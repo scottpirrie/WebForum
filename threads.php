@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
-    <title>Admin</title>
-    <?php
-        include_once("includeHeader.php");
-        include("calls.php");
-    ?>
-
+    <title>Register</title>
+    <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
 
@@ -14,12 +10,51 @@
 $currentPath = basename(__FILE__);
 include_once("menu.php");
 
+
+$topicName = "";
+if (isset($_GET["topicID"]) || isset($_SESSION['topicID'])) {
+    if (isset($_GET["topicID"])) {
+        $topicName = $_GET["topicID"];
+        $_SESSION['topicID'] = $topicName;
+    } else {
+        $topicName = $_SESSION["topicID"];
+    }
+
+} else { ?>
+    <script> redirectTopics();</script> <?php
+}
 ?>
 
 
 <div class="page-header col-md-offset-1">
-    <h1>Threads</h1>
+    <h1>Threads: Topic ID - <?php echo $topicName;?></h1>
 </div>
+
+
+<?php
+
+
+$sql = "SELECT type FROM `Topics` WHERE id = '$topicName'";
+$res = $conn->query($sql);
+
+$requiredPermission = false;
+if ($res->num_rows > 0) {
+    while ($row = $res->fetch_assoc()) {
+        if ($row["type"] <= $_SESSION['type']) {
+           $requiredPermission = true;
+        }
+    }
+}
+
+if ($requiredPermission) {
+
+
+
+
+
+?>
+
+
 
 <form action="searchResults.php" method="get">
     Search for a Post :0 <input type="text" name="searchText"> <input type="submit" name="searchButton"><br/><br/>
@@ -28,7 +63,12 @@ include_once("menu.php");
 <?php
 if($_SERVER["REQUEST_METHOD"]== "POST") {
     if(isset($_POST["create"])) {
-        $topicID = $_POST["topicID"];
+        if (isset($_POST["topicID"])) {
+            $topicID = $_POST["topicID"];
+        } else {
+            $topicID = $_SESSION["topicID"];
+        }
+
         if(isset($_SESSION["hasPosted"])){
             if($_SESSION["hasPosted"]==false){
                 $threadName = cleanStr($_POST["threadName"], $conn);
@@ -57,9 +97,14 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
             }
         }
     }
-} elseif($_SERVER["REQUEST_METHOD"] == "GET"){
-    if(isset($_GET['topicID'])){
-        $topicID = $_GET['topicID'];
+}
+
+
+    if (isset($_GET["topicID"])) {
+        $topicID = $_GET["topicID"];
+    } else {
+        $topicID = $_SESSION["topicID"];
+    }
         if(isset($_GET["nextpage"])){
             $_SESSION["page"]++;
         } elseif(isset($_GET["prevpage"])){
@@ -69,44 +114,44 @@ if($_SERVER["REQUEST_METHOD"]== "POST") {
         } else{
             $_SESSION["page"] = 1;
         }
-    } else {
-        ?><script> redirectTopics();</script><?php
-    }
-}
+
+
 
 $sql = "SELECT * FROM `Threads` WHERE `topic` = '$topicID' ORDER BY `datelast` DESC";
-if($result = $conn->query($sql)) {
-    echo "<table>";
-    echo "<tr>";
-    echo "<th>Threads</th>";
-    echo "<th>Creator</th>";
-    echo "<th>Last Updated</th>";
-    echo "</tr>";
+if ($result = $conn->query($sql)) { ?>
+<table>
+    <tr>
+        <th>Threads</th>
+        <th>Creator</th>
+        <th>Last Updated</th>
+    </tr>
+    <?php
     if ($result->num_rows > 0) {
-        $threadNum = $_SESSION["page"] * 10;
-        while ($row = $result->fetch_assoc()) {
-            $out[] = $row;
-        }
-        $out[] = null;
-        for ($i = $threadNum - 10; $i < $threadNum; $i++) {
+    $threadNum = $_SESSION["page"] * 10;
+    while ($row = $result->fetch_assoc()) {
+        $out[] = $row;
+    }
+    $out[] = null;
+    for ($i = $threadNum - 10; $i < $threadNum; $i++) {
 
-            if ($out[$i] == null) {
-                $last = true;
-                break;
-            } else {
-                $last = false;
-            }
-            $threadID = $out[$i]["id"];
-            $threadName = $out[$i]["threadname"];
-            $date = $out[$i]["datelast"];
-            $creator = $out[$i]["creator"];
-
-            echo "<tr id=$threadID onclick=\"redirectPost(id)\">";
-            echo "<td>" . $threadName . "</td>";
-            echo "<td>" . $creator . "</td>";
-            echo "<td>" . $date . "</td>";
-            echo "</tr>";
+        if ($out[$i] == null) {
+            $last = true;
+            break;
+        } else {
+            $last = false;
         }
+        $threadID = $out[$i]["id"];
+        $threadName = $out[$i]["threadname"];
+        $date = $out[$i]["datelast"];
+        $creator = $out[$i]["creator"];
+        ?>
+        <tr id=<?php echo $threadID;?> onclick="redirectPost(id)">
+            <td><?php echo $threadName; ?></td>
+            <td><?php echo $creator; ?></td>
+            <td><?php echo $date; ?></td>
+        </tr>
+        <?php
+    }
 
         echo "</table>";
         $page = $_SESSION["page"];
@@ -132,6 +177,17 @@ if($result = $conn->query($sql)) {
     <input type ="submit" name="submit" value="Create New Thread"/>
     <input type = "hidden" name = "topicID" value = "<?php echo $topicID;?>">
 </form>
+
+
+<?php } else {
+    echo"why are you here";
+
+
+}?>
+
+
+
+
 
 </body>
 </html>

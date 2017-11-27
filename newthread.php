@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Create Thread</title>
+    <title>Register</title>
     <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
@@ -13,10 +13,11 @@ include_once("menu.php");
 
 
 <div class="page-header col-md-offset-1">
-    <h1>New Thread Topic</h1>
+    <h1>New Thread</h1>
 </div>
 
 <?php
+
 if(isset($_GET['topicID'])){
     if(isset($_GET['submit'])) {
         if ($_SESSION["type"] > 0) {
