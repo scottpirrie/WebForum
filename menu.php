@@ -10,11 +10,11 @@ if (!isset($currentPath)) {
     $currentPath = "menu.php";
 }
 
-if ($currentPath != "posts.php" && $currentPath != "newPost.php"){
+if ($currentPath != "posts.php" && $currentPath != "newpost.php"){
     unset($_SESSION['threadID']);
 }
 
-if ($currentPath != "posts.php" && $currentPath != "newPost.php" &&
+if ($currentPath != "posts.php" && $currentPath != "newpost.php" &&
     $currentPath != "threads.php" && $currentPath != "newthread.php"){
     unset($_SESSION['topicID']);
 }

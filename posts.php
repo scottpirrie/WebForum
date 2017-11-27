@@ -93,6 +93,9 @@ if ($requiredPermission) {
     $sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
+        if (!isset($_SESSION['postPage'])){
+            $_SESSION['postPage'] = 1;
+        }
         $postNum = $_SESSION["postPage"] * 10;
         while ($row = $result->fetch_assoc()) {
             $out[] = $row;
@@ -200,7 +203,7 @@ if ($requiredPermission) {
         }
         ?>
     </form>
-    <form name="newPost" method="POST" action="newPost.php">
+    <form name="newpost" method="POST" action="newpost.php">
         <input type="submit" name="submit" value="Create new post"/>
     </form>
 

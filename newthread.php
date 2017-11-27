@@ -21,7 +21,7 @@ include_once("menu.php");
 
 
 if(isset($_SESSION['topicID'])){
-    if(isset($_GET['submit'])) {
+
         if ($_SESSION["type"] > 0) {
             $_SESSION["hasPosted"] = false; ?>
 
@@ -47,7 +47,7 @@ if(isset($_SESSION['topicID'])){
                             <div class="form-group  col-md-2 ">
                                 <input class="form-control" type="submit" name="create" value="Create!">
                             </div>
-                            <input type = "hidden" name = "topicID" value = <?php echo $_GET['topicID'];?>>
+                            <input type = "hidden" name = "topicID" value = <?php echo $_SESSION['topicID'];?>>
                         </form>
                     </div>
                 </div>
@@ -70,9 +70,7 @@ if(isset($_SESSION['topicID'])){
             </div> <?php
 
         }
-    } else{
-        echo "<script> redirectThread(id);</script>";
-    }
+
 } else{
     echo "<script> redirectTopics();</script>";
 }
