@@ -65,7 +65,7 @@ if ($_SESSION["type"] > 1) {
     <div class="container col-md-8 col-md-offset-2">
         <div class="panel panel-warning">
             <div class="panel-heading">Not logged in!</div>
-            <div class="panel-body">You need to be logged in to create a topic!</div>
+            <div class="panel-body">You need to be logged in as a moderator/admin to create a topic!</div>
         </div>
     </div> <?php
 } elseif ($_SESSION["type"] == -1){?>

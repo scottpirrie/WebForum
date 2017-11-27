@@ -47,6 +47,8 @@ function logOff()
 {
     $_SESSION['type'] = 0;
     $_SESSION['user'] = "";
+    unset($_SESSION['topicID']);
+    unset($_SESSION['threadID']);
 }
 ?>
 
