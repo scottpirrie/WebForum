@@ -20,7 +20,7 @@
     }
 
     .navbar-toggle {
-        background-color: #beb9f7;
+        background-color: #beb9f7; 
     }
 
     .navbar-inverse .navbar-brand,
