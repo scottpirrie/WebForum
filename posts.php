@@ -63,6 +63,7 @@ $requiredPermission = false;
 if ($res->num_rows > 0) {
     while ($row = $res->fetch_assoc()) {
         if ($row["type"] <= $_SESSION['type']) {
+            $type = $row["type"];
             $requiredPermission = true;
         }
     }
@@ -96,6 +97,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 $_SESSION["hasPosted"] = true;
             }
+        }
+    }elseif (isset($_POST['delete'])){
+        $id = $_POST['postID'];
+        $sql = "DELETE FROM `Posts` WHERE `id` = '$id'";
+        $conn->query($sql);
+        $sql = "SELECT COUNT(*) FROM `Posts` WHERE `id`='id'";
+        $res = $conn->query($sql);
+        if($res->num_rows==0){
+            $sql = "DELETE FROM `Threads` WHERE `id` = '$threadID'";
+            $conn->query($sql);
+            ?>
+            <script>redirectTopics()</script>
+            <?php
         }
     }
 }
@@ -183,11 +197,22 @@ $result = $conn->query($sql); ?>
                     $creator = $out[$i]["creator"];
                     $content = $out[$i]["content"];
                     $date = $out[$i]["date"];
+                    $postID = $out[$i]["id"]
                     ?>
                     <tr>
                         <td> <?php echo $creator; ?> </td>
                         <td> <?php echo $content; ?></td>
                         <td> <?php echo $date; ?></td>
+                        <?php if(($type <2 && $_SESSION['type']>=2)||($type==2 && $_SESSION['type']==3)||$creator == $_SESSION['user']){
+                            ?>
+                            <td>
+                                <form method="POST" action="posts.php" onclick="return confirm('Are you sure you want to delete this post?')">
+                                    <input type = "submit" name = "delete" value="Delete">
+                                    <input type="hidden"value="<?php echo $postID?>"name="postID">
+                                    <input type="hidden"value="<?php echo $topicID?>"name="threadID">
+                                </form>
+                            </td>
+                        <?php }?>
                     </tr>
 
                     <?php

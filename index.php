@@ -19,7 +19,8 @@ include_once("menu.php");
 <div class="container">
     <div class="jumbotron">
         <h1>Grp.K Forums</h1>
-        <p>Browse topics and discuss with other users. <a href="register.php">Sign up now.</a></p>
+        <p>Browse topics and discuss with other users.
+            <?php if($_SESSION['type'] == 0){?> <a href="register.php">Sign up now.</a><?php }?></p>
     </div>
 
     <div class="container col-md-10 col-md-offset-1">

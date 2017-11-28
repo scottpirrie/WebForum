@@ -27,7 +27,7 @@ if (isset($_GET["topicID"]) || isset($_SESSION['topicID'])) {
 
 <?php
 $tempTopicName = "";
-//todo sql
+
 $sql = "SELECT `name` FROM `Topics` WHERE ID = '$topicName'";
 $res = $conn->query($sql);
 
@@ -54,6 +54,7 @@ $requiredPermission = false;
 if ($res->num_rows > 0) {
     while ($row = $res->fetch_assoc()) {
         if ($row["type"] <= $_SESSION['type']) {
+            $type = $row["type"];
             $requiredPermission = true;
         }
     }
@@ -101,6 +102,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["hasPosted"] = true;
             }
         }
+    }elseif (isset($_POST['delete'])){
+        $id = $_POST['threadID'];
+        $sql = "DELETE FROM `Threads` WHERE `id` = '$id'";
+        $conn->query($sql);
     }
 }
 
@@ -168,10 +173,20 @@ if ($result = $conn->query($sql)) { ?>
                     $date = $out[$i]["datelast"];
                     $creator = $out[$i]["creator"];
                     ?>
-                    <tr id=<?php echo $threadID; ?> onclick="redirectPost(id)">
-                        <td><?php echo $threadName; ?></td>
-                        <td><?php echo $creator; ?></td>
-                        <td><?php echo $date; ?></td>
+                    <tr>
+                        <td id=<?php echo $threadID; ?> onclick="redirectPost(id)"><?php echo $threadName; ?></td>
+                        <td id=<?php echo $threadID; ?> onclick="redirectPost(id)"><?php echo $creator; ?></td>
+                        <td id=<?php echo $threadID; ?> onclick="redirectPost(id)"><?php echo $date; ?></td>
+                        <?php if(($type <2 && $_SESSION['type']>=2)||($type==2 && $_SESSION['type']==3)||$creator == $_SESSION['user']){
+                                ?>
+                            <td>
+                                <form method="POST" action="threads.php" onclick="return confirm('Are you sure you want to delete this thread?')">
+                                    <input type = "submit" name = "delete" value="Delete">
+                                    <input type="hidden"value="<?php echo $threadID?>"name="threadID">
+                                    <input type="hidden"value="<?php echo $topicID?>"name="topicID">
+                                </form>
+                            </td>
+                        <?php }?>
                     </tr>
                     <?php
                 }
@@ -232,3 +247,4 @@ if ($result = $conn->query($sql)) { ?>
 
 </body>
 </html>
+
