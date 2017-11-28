@@ -4,6 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="css/animations.css">
 <style>
 
     body {
@@ -20,7 +21,7 @@
     }
 
     .navbar-toggle {
-        background-color: #beb9f7; 
+        background-color: #beb9f7;
     }
 
     .navbar-inverse .navbar-brand,
@@ -58,26 +59,29 @@
         }
     }
 
-
+    .wordbreaker {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 
     .nopadding {
-         margin-top:0;
-         margin-bottom: 0;
-         margin-right: 0;
-         margin-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-right: 0;
+        margin-left: 0;
 
-         padding-top:0;
-         padding-bottom: 0;
-         padding-right: 0;
-         padding-left: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-right: 0;
+        padding-left: 0;
 
-
-     }
+    }
 
     .reducedPadding {
         padding: 3px;
 
     }
+
     textarea {
         resize: none;
     }
@@ -136,5 +140,23 @@
     tr:hover {
         background-color: #ddd;
     }
+
+    .about{
+        background-color: white;
+        padding: 3%;
+        border-radius: 4%;
+
+        animation-name: example;
+        animation-duration: 4s;
+
+    }
+
+
+    /* The animation code */
+    @keyframes example {
+        from {background-color: red;}
+        to {background-color: yellow;}
+    }
+
 
 </style>

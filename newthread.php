@@ -41,7 +41,7 @@ if(isset($_SESSION['topicID'])){
                             <div class="form-group  col-md-12 ">
                                 <label class="col-form-label" for="post">Post:</label>
                                 <textarea class="form-control" rows="20" name="post"
-                                          form="create-thread"></textarea><br>
+                                          form="create-thread" placeholder="Enter text..." required></textarea><br>
                             </div>
 
                             <div class="form-group  col-md-2 ">

@@ -45,7 +45,7 @@ if (isset($_POST["create"])) {
         }
     }
     if ($accountCreationSuccess) {
-        $sql = "INSERT INTO `Login` (`username`, `password`, `type`) VALUES ('$createUser', '$createPass', '2')";
+        $sql = "INSERT INTO `Login` (`username`, `password`, `type`) VALUES ('$createUser', '$createPass', '1')";
         $conn->query($sql);
 
         /*todo change privilege level*/
