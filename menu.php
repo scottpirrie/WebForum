@@ -72,7 +72,7 @@ if ($_SESSION['user'] != "") {
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="index.php">Meme Forum</a>
+            <a class="navbar-brand" href="index.php">Grp.K Forums</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">

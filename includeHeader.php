@@ -10,14 +10,20 @@
     body {
         color: #414141;
         font-family: Tahoma, Geneva, sans-serif;
-        background-color: #fffcfc;
+        background-color: #f9ede1;
+    }
+
+    .jumbotron {
+        background-color: yellow;
+        color: red;
     }
 
     .navbar,
     .navbar-header,
     .nav-item,
     .nav-link {
-        background-color: #E6E4FF;
+        background-color: #e299a0;
+        border: #a05d6a;
     }
 
     .navbar-toggle {
@@ -115,6 +121,17 @@
         text-align: right;
     }
 
+    .about{
+        background-color: white;
+        padding: 3%;
+        border-radius: 4%;
+
+        animation-name: example;
+        animation-duration: 1s;
+        animation-iteration-count: 10000000;
+
+    }
+
     /*Table only, will re-write if needed*/
     table {
         word-wrap: break-word;
@@ -141,21 +158,15 @@
         background-color: #ddd;
     }
 
-    .about{
-        background-color: white;
-        padding: 3%;
-        border-radius: 4%;
-
-        animation-name: example;
-        animation-duration: 4s;
-
-    }
 
 
     /* The animation code */
     @keyframes example {
-        from {background-color: red;}
-        to {background-color: yellow;}
+        0%   {background-color:red; left:0px; top:0px;}
+        25%  {background-color:yellow; left:200px; top:0px;}
+        50%  {background-color:blue; left:200px; top:200px;}
+        75%  {background-color:green; left:0px; top:200px;}
+        100% {background-color:red; left:0px; top:0px;}
     }
 
 

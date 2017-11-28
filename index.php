@@ -3,22 +3,6 @@
 <head>
     <title>Home Page</title>
     <?php include_once("includeHeader.php"); ?>
-
-    <style>
-        .fluidMedia {
-            position: relative;
-            padding-bottom: 56.25%; /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
-
-        }
-        #memeFrame {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-    </style>
-
-
 </head>
 <body>
 
@@ -26,12 +10,29 @@
 $currentPath = basename(__FILE__);
 include_once("menu.php");
 ?>
+<br>
+<br>
+<br>
+<br>
 
-<div class="container-fluid">
-    <div class="fluidMedia">
-    <iframe id="memeFrame" src="https://www.youtube.com/embed/ZFC9mjdfcUo" allowfullscreen></iframe>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Grp.K Forums</h1>
+        <p>Browse topics and discuss with other users. <a href="register.php">Sign up now.</a></p>
+    </div>
+
+    <div class="container col-md-10 col-md-offset-1">
+        <div class="page-header">
+            <h1>Ready to go?</h1>
+            <div class="col-md-offset-1">
+                <h2><a href="topics.php">Start browsing</a> </h2>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
+
+
 
 </body>
 </html>
