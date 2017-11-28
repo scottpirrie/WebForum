@@ -39,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
-$sql = "SELECT * FROM `Topics`";
+$sessionType = $_SESSION['type'];
+$sql = "SELECT * FROM `Topics` WHERE `type` <= '$sessionType'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

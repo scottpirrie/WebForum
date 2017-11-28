@@ -14,8 +14,8 @@
     }
 
     .jumbotron {
-        background-color: yellow;
-        color: red;
+        background-color: #f4e7fd;
+        color: #705160;
     }
 
     .navbar,
@@ -27,33 +27,35 @@
     }
 
     .navbar-toggle {
-        background-color: #beb9f7;
+        background-color: #fcd1d7;
+        border-color: #C73B2E;
     }
 
     .navbar-inverse .navbar-brand,
     .navbar-inverse .navbar-nav > li > a {
-        color: #46264C
+        color: #fafafe;
     }
 
     .navbar-inverse .navbar-brand:hover,
     .navbar-inverse .navbar-brand:focus {
-        color: black;
+        color: #76566e;
+    }
+
+    .navbar-inverse .navbar-toggle:hover,
+    .navbar-inverse .navbar-toggle:focus {
+        background-color: #fadaca;
     }
 
     .navbar-inverse .navbar-nav > li > a:hover,
     .navbar-inverse .navbar-nav > li > a:focus {
-        color: #C73B2E;
+        color: #76566e;
     }
 
     .navbar-inverse .navbar-nav > .active > a,
     .navbar-inverse .navbar-nav > .active > a:hover,
     .navbar-inverse .navbar-nav > .active > a:focus {
         color: #46264C;
-        background-color: #F5EEC8;
-    }
-
-    .navbar-inverse .navbar-toggle {
-        border-color: #C73B2E;
+        background-color: #f6f0bb;
     }
 
     /* Essential */
@@ -71,21 +73,12 @@
     }
 
     .nopadding {
-        margin-top: 0;
-        margin-bottom: 0;
-        margin-right: 0;
-        margin-left: 0;
-
-        padding-top: 0;
-        padding-bottom: 0;
-        padding-right: 0;
-        padding-left: 0;
-
+        margin: 0;
+        padding: 0;
     }
 
     .reducedPadding {
         padding: 3px;
-
     }
 
     textarea {
@@ -122,13 +115,9 @@
     }
 
     .about{
-        background-color: white;
+        background-color: floralwhite !important;
         padding: 3%;
         border-radius: 4%;
-
-        animation-name: example;
-        animation-duration: 1s;
-        animation-iteration-count: 10000000;
 
     }
 
@@ -151,23 +140,11 @@
     }
 
     tr:nth-child(even) {
-        background-color: #f2f2f2;
+        background-color: #fce5d5;
     }
 
     tr:hover {
-        background-color: #ddd;
+        background-color: #e4b3e7 !important;
     }
-
-
-
-    /* The animation code */
-    @keyframes example {
-        0%   {background-color:red; left:0px; top:0px;}
-        25%  {background-color:yellow; left:200px; top:0px;}
-        50%  {background-color:blue; left:200px; top:200px;}
-        75%  {background-color:green; left:0px; top:200px;}
-        100% {background-color:red; left:0px; top:0px;}
-    }
-
 
 </style>
