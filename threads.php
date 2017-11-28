@@ -143,6 +143,7 @@ if (isset($_GET["nextpage"])) {
 
 
 $sql = "SELECT * FROM `Threads` WHERE `topic` = '$topicID' ORDER BY `datelast` DESC";
+$last = true;
 if ($result = $conn->query($sql)) { ?>
 <div class="container col-md-10 col-md-offset-1">
     <div class="panel panel-default">
