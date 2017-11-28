@@ -25,8 +25,22 @@ if (isset($_GET["threadID"]) || isset($_SESSION['threadID'])) {
 
 ?>
 
+<?php
+$tempThreadName = "";
+//todo sql
+$sql = "SELECT `threadname` FROM `Threads` WHERE ID = '$threadIDnumber'";
+$res = $conn->query($sql);
+
+if ($res->num_rows > 0) {
+    while ($row = $res->fetch_assoc()) {
+        $tempThreadName = $row["threadname"];
+    }
+}
+?>
+
 <div class="page-header col-md-offset-1">
-    <h1>Posts: Thread ID - <?php echo $_SESSION["threadID"]; ?> </h1>
+    <h1>Posts </h1>
+    <h3>Thread: <?php echo $tempThreadName; ?></h3>
 </div>
 
 <?php
@@ -67,13 +81,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $date = date('Y-m-d H:m:s', time());
                 $sql = "INSERT INTO `Posts`(`threadid`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$postContent')";
 
-                if ($conn->query($sql)) {
-                    echo "<p>Post created successfully</p>";
-                    // todo make this not a print
+                if ($conn->query($sql)) { ?>
+                    <div class="alert alert-success">
+                        <strong>Post created successfully.</strong>
+                    </div> <?php
                     $sql = "UPDATE `Threads` SET `datelast` = '$date' WHERE `id` = '$threadID'";
                     $conn->query($sql);
-                } else {
-                    echo "<p>Post not created. An error has occurred.</p>";
+                } else { ?>
+                    <div class="alert alert-danger">
+                        <strong>Post not created. An error has occurred.</strong>
+                    </div>
+
+                    <?php
                 }
                 $_SESSION["hasPosted"] = true;
             }

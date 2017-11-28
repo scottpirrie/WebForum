@@ -27,7 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sql = "INSERT INTO `Topics` (`name`, `type`) VALUES ('$topicName', '$type')";
 
                 if ($conn->query($sql)) {
-                    echo "<p>Topic created successfully</p>";
+
+                    ?>
+                    <div class="alert alert-success">
+                        <strong>Topic created successfully.</strong>
+                    </div> <?php
                 }
                 $_SESSION["hasCreated"] = true;
             }
@@ -149,17 +153,19 @@ $result = $conn->query($sql);
                     ?>
                     <div class="form-group col-md-1 ">
                         <input class="btn btn-sm reducedPadding" type="submit" name="prevpage" value="Prev Page">
-                        <?php
-                        } ?> </div><?php
-                    if (!$last) {
-                    ?>
-                    <div class="form-group col-md-1  ">
-                        <input class="btn btn-sm reducedPadding" type="submit" name="nextpage"
-                               value="Next Page">
                     </div>
+                       <?php
+                        } ?> <?php
+                    if (!$last) {
+                        ?>
+                        <div class="form-group col-md-1  ">
+                            <input class="btn btn-sm reducedPadding" type="submit" name="nextpage"
+                                   value="Next Page">
+                        </div>
                     <?php } ?>
-                    <div class="alignRight"> Page <?php
-                        echo $_SESSION["page"]; ?></div>
+                    <div class="alignRight"> Page
+                        <?php echo $_SESSION["page"]; ?>
+                    </div>
                 </form>
             </div>
 
@@ -186,9 +192,6 @@ if ($_SESSION['type'] > 1) { ?>
 
 
     </div>
-
-
-
 
 
 <?php }

@@ -25,9 +25,22 @@ if (isset($_GET["topicID"]) || isset($_SESSION['topicID'])) {
 }
 ?>
 
+<?php
+$tempTopicName = "";
+//todo sql
+$sql = "SELECT `name` FROM `Topics` WHERE ID = '$topicName'";
+$res = $conn->query($sql);
 
+if ($res->num_rows > 0) {
+    while ($row = $res->fetch_assoc()) {
+        $tempTopicName = $row["name"];
+
+    }
+}
+?>
 <div class="page-header col-md-offset-1">
-    <h1>Threads: Topic ID - <?php echo $topicName; ?></h1>
+    <h1>Threads: Topic</h1>
+    <h3>Topic: <?php echo $tempTopicName; ?></h3>
 </div>
 
 
@@ -64,16 +77,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sql = "INSERT INTO `Threads` (`threadname`, `creator`, `date`, `datelast`, `topic`) VALUES ('$threadName', '$user', '$date', '$date', '$topicID')";
 
                 if ($conn->query($sql)) {
-                    echo "<p>Thread created successfully</p>";
+                    ?>
+                    <div class="alert alert-success">
+                        <strong>Thread created successfully.</strong>
+                    </div> <?php
+
                     $sql = "SELECT `id` FROM `Threads` WHERE `threadname` = '$threadName' AND `creator` = '$user' AND `date` = '$date'";
                     $res = $conn->query($sql);
                     if ($res->num_rows > 0) {
                         $row = $res->fetch_row();
                         $threadID = $row[0];
-                        echo $post;
                         $sql = "INSERT INTO `Posts`(`threadid`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$post')";
                         if ($conn->query($sql)) {
-                            echo "<p>Post added to thread successfully!</p>";
+                            ?>
+                            <div class="alert alert-success">
+                                <strong>Post added to thread successfully.</strong>
+                            </div> <?php
                         }
 
                     }
