@@ -20,7 +20,7 @@ include_once("menu.php");
 
 <div class="container col-md-8 col-md-offset-2 about">
     <div class="wordbreaker">
-        <p>This website was designed by:
+        <p>This website was designed by:</p>
         <ul>
             <li>Kuen Wai Chan</li>
             <li>Gordon Clark</li>
@@ -28,11 +28,12 @@ include_once("menu.php");
             <li>Karol Groszewski</li>
             <li>Scott Pirrie</li>
         </ul>
-        </p>
+
 
         <p>
             The intention of this website is to allow users to make accounts, and discuss in a forum environment. As
             such, users are identified as one of several ranks:
+        </p>
         <ul>
             <li>Not logged in:
                 <ul>
@@ -41,7 +42,7 @@ include_once("menu.php");
                 </ul>
             </li>
 
-            <br>
+
 
             <li>Normal User:
                 <ul>
@@ -51,7 +52,7 @@ include_once("menu.php");
                 </ul>
             </li>
 
-            <br>
+
 
             <li>Moderators:
                 <ul>
@@ -62,8 +63,6 @@ include_once("menu.php");
                     <li>Can manipulate permissions of accounts that are not Admins. (i.e. Ban)</li>
                 </ul>
             </li>
-
-            <br>
 
             <li> Admins:
                 <ul>
@@ -76,8 +75,6 @@ include_once("menu.php");
                 </ul>
             </li>
 
-            <br>
-
             <li> Banned users:
                 <ul>
                     <li>Can view topics/threads labelled "Anyone"</li>
@@ -85,24 +82,26 @@ include_once("menu.php");
                 </ul>
             </li>
         </ul>
-        </p>
+
 
         <p>Users also have the ability to change password, when logged in.</p>
 
         <br>
         <br>
 
-        <p>This page was made using Bootstrap 3.3.7. After reading tutorials from:
+        <p>This page was made using Bootstrap 3.3.7. After reading tutorials from:</p>
+
         <ul>
             <li><a href="https://www.w3schools.com/bootstrap/default.asp">W3Schools</a></li>
             <li><a href="http://bootstrapdocs.com/v3.0.3/docs/css/">Bootstrap Official</a></li>
         </ul>
-        </p>
+
 
         <br>
 
         <p>
             For the purpose of demonstration, the following accounts have been made with the passwords "1234":
+        </p>
         <ul>
             <li>"Banned"</li>
             <li>"Normal"</li>
@@ -110,7 +109,7 @@ include_once("menu.php");
             <li>"Admin"</li>
         </ul>
 
-        </p>
+
     </div>
 
 </div>
