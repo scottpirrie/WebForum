@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register</title>
+    <title>Topics</title>
     <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
@@ -78,87 +78,122 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 $sql = "SELECT * FROM `Topics`";
 $result = $conn->query($sql);
 ?>
-<table>
-    <tr>
-        <th>Topics</th>
-        <th>Required Permissions</th>
-    </tr>
-    <?php
-    if ($result->num_rows > 0) {
-        $topicNum = $_SESSION["page"] * 10;
-        while ($row = $result->fetch_assoc()) {
-            $out[] = $row;
-        }
-        $out[] = null;
-        for ($i = $topicNum - 10; $i < $topicNum; $i++) {
+<div class="container col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
 
-            if ($out[$i] == null) {
-                $last = true;
-                break;
+        <table class="table-striped table-hover table-responsive table-bordered">
+            <tr>
+                <th class="col-md-4 nopadding">Topics</th>
+                <th>Required Permissions</th>
+            </tr>
+            <?php
+            if ($result->num_rows > 0) {
+                $topicNum = $_SESSION["page"] * 10;
+                while ($row = $result->fetch_assoc()) {
+                    $out[] = $row;
+                }
+                $out[] = null;
+                for ($i = $topicNum - 10; $i < $topicNum; $i++) {
+
+                    if ($out[$i] == null) {
+                        $last = true;
+                        break;
+                    } else {
+                        $last = false;
+                    }
+                    $topicID = $out[$i]["id"];
+                    $topicName = $out[$i]["name"];
+                    $type = $out[$i]["type"];
+
+                    if ($_SESSION['type'] >= $type) {
+                        ?>
+
+
+                        <tr id="<?php echo $topicID; ?>" onclick="redirectThread(id)">
+                            <td><?php echo $topicName; ?></td>
+                            <td><?php
+                                if ($type < 1) {
+                                    echo "Anyone";
+                                } else if ($type == 1) {
+                                    echo "Logged in & Good Standing";
+                                } elseif ($type == 2) {
+                                    echo "Moderators";
+                                } elseif ($type == 3) {
+                                    echo "Admins";
+                                }
+
+                                ?></td>
+                        </tr>
+
+
+                        <?php
+                    }
+
+
+                }
             } else {
-                $last = false;
-            }
-            $topicID = $out[$i]["id"];
-            $topicName = $out[$i]["name"];
-            $type = $out[$i]["type"];
-
-            if ($_SESSION['type'] >= $type) {
-                ?>
-
-
-                <tr id="<?php echo $topicID; ?>" onclick="redirectThread(id)">
-                    <td><?php echo $topicName; ?></td>
-                    <td><?php
-                        if ($type < 1) {
-                            echo "Anyone";
-                        } else if ($type == 1) {
-                            echo "Logged in & Good Standing";
-                        } elseif ($type == 2) {
-                            echo "Moderators";
-                        } elseif ($type == 3) {
-                            echo "Admins";
-                        }
-
-                        ?></td>
-                </tr>
-
-
-                <?php
+                $last = true;
             }
 
 
-        }
-    } else {
-        $last = true;
-    }
-    echo "</table>";
-    $page = $_SESSION["page"];
-    echo "<p>Page $page</p>"
-    ?>
-
-
-    <form method="GET" action="topics.php"><?php
-        if ($page > 1) {
             ?>
-            <input type="submit" name="prevpage" value="Previous Page">
-            <?php
-        }
-        if (!$last) {
-            ?>
-            <input type="submit" name="nextpage" value="Next Page">
-            <?php
-        }
-        ?>
-    </form>
+        </table>
 
-    <?php
-    if ($_SESSION['type'] > 1) { ?>
-        <form method="GET" action="newtopic.php">
-        <input type="submit" name="submit" value="Create New Topic"/>
-    </form>
-   <?php }
+        <div class="panel-footer">
 
-    ?>
+            <div>
+                <form class="form-inline" method="GET" action="topics.php">
+                    <?php
+                    $page = $_SESSION['page'];
+                    if ($page > 1) {
+                    ?>
+                    <div class="form-group col-md-1 ">
+                        <input class="btn btn-sm reducedPadding" type="submit" name="prevpage" value="Prev Page">
+                        <?php
+                        } ?> </div><?php
+                    if (!$last) {
+                    ?>
+                    <div class="form-group col-md-1  ">
+                        <input class="btn btn-sm reducedPadding" type="submit" name="nextpage"
+                               value="Next Page">
+                    </div>
+                    <?php } ?>
+                    <div class="alignRight"> Page <?php
+                        echo $_SESSION["page"]; ?></div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<?php
+if ($_SESSION['type'] > 1) { ?>
+
+
+    <div class="container col-md-3 col-md-offset-1">
+
+        <form class="form" method="GET" action="newtopic.php">
+            <div class="form-group">
+                <input class="form-control col-md-2" type="submit" name="submit" value="Create New Topic"/>
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+
+
+
+
+<?php }
+
+?>
 
 
 </body>

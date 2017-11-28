@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register</title>
+    <title>Posts</title>
     <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
@@ -32,14 +32,6 @@ if (isset($_GET["threadID"]) || isset($_SESSION['threadID'])) {
 <?php
 
 
-////////////////////////////////todo permission to check if you should be able to see this
-
-//because weirdly, posts uses post where as threads used get.. this is only reachable if someone with permission logs in
-//views, logs out, logs in as banned user, jumps straight to posts.php without going through topics ...
-
-// first get the topic number
-
-
 $sql = "SELECT topic FROM `Threads` WHERE id = '$threadIDnumber'";
 $res = $conn->query($sql);
 
@@ -64,154 +56,176 @@ if ($res->num_rows > 0) {
 
 if ($requiredPermission) {
 
-    $threadID = $_SESSION["threadID"];
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST["createPost"])) {
-            if (isset($_SESSION["hasPosted"])) {
-                if ($_SESSION["hasPosted"] == false) {
-                    $postContent = cleanStr($_POST["postContent"], $conn); //Do we want to clean the post??
+$threadID = $_SESSION["threadID"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["createPost"])) {
+        if (isset($_SESSION["hasPosted"])) {
+            if ($_SESSION["hasPosted"] == false) {
+                $postContent = cleanStr($_POST["postContent"], $conn); //Do we want to clean the post??
 
-                    $user = $_SESSION["user"];
-                    $date = date('Y-m-d H:m:s', time());
-                    $sql = "INSERT INTO `Posts`(`threadid`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$postContent')";
+                $user = $_SESSION["user"];
+                $date = date('Y-m-d H:m:s', time());
+                $sql = "INSERT INTO `Posts`(`threadid`, `creator`, `date`, `content`) VALUES ('$threadID','$user','$date','$postContent')";
 
-                    if ($conn->query($sql)) {
-                        echo "<p>Post created successfully</p>";
-                        // todo make this not a print
-                        $sql = "UPDATE `Threads` SET `datelast` = '$date' WHERE `id` = '$threadID'";
-                        $conn->query($sql);
-                    } else {
-                        echo "<p>Post not created. An error has occurred.</p>";
-                    }
-                    $_SESSION["hasPosted"] = true;
+                if ($conn->query($sql)) {
+                    echo "<p>Post created successfully</p>";
+                    // todo make this not a print
+                    $sql = "UPDATE `Threads` SET `datelast` = '$date' WHERE `id` = '$threadID'";
+                    $conn->query($sql);
+                } else {
+                    echo "<p>Post not created. An error has occurred.</p>";
                 }
+                $_SESSION["hasPosted"] = true;
             }
         }
     }
+}
 
 
-    $sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        if (!isset($_SESSION['postPage'])){
-            $_SESSION['postPage'] = 1;
-        }
-        $postNum = $_SESSION["postPage"] * 10;
-        while ($row = $result->fetch_assoc()) {
-            $out[] = $row;
-        }
-        $out[] = null;
-        for ($i = $postNum - 10; $i < $postNum; $i++) {
-
-            if ($out[$i] == null) {
-                $last = true;
-                break;
-            } else {
-                $last = false;
-            }
-        }
-    } elseif ($result->num_rows == 0) {
-        $last = true;
+$sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    if (!isset($_SESSION['postPage'])) {
+        $_SESSION['postPage'] = 1;
     }
+    $postNum = $_SESSION["postPage"] * 10;
+    while ($row = $result->fetch_assoc()) {
+        $out[] = $row;
+    }
+    $out[] = null;
+    for ($i = $postNum - 10; $i < $postNum; $i++) {
 
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        if (isset($_GET["nextpostpage"])) {
-            if (!$last) {
-                $_SESSION["postPage"]++;
-            }
-        } elseif (isset($_GET["prevpostpage"])) {
-            if ($_SESSION["postPage"] > 1) {
-                $_SESSION["postPage"]--;
-            }
+        if ($out[$i] == null) {
+            $last = true;
+            break;
         } else {
-            $_SESSION["postPage"] = 1;
+            $last = false;
         }
-
     }
+} elseif ($result->num_rows == 0) {
+    $last = true;
+}
 
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        if (isset($_GET["threadID"])) {
-            $threadID = $_GET["threadID"];
-            $_SESSION["threadID"] = $threadID;
-        } elseif (isset($_SESSION["threadID"])) {
-            $threadID = $_SESSION["threadID"];
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (isset($_GET["nextpostpage"])) {
+        if (!$last) {
+            $_SESSION["postPage"]++;
+        }
+    } elseif (isset($_GET["prevpostpage"])) {
+        if ($_SESSION["postPage"] > 1) {
+            $_SESSION["postPage"]--;
         }
     } else {
-        $threadID = $_SESSION["threadID"];
+        $_SESSION["postPage"] = 1;
     }
 
-    $sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
-    $result = $conn->query($sql); ?>
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (isset($_GET["threadID"])) {
+        $threadID = $_GET["threadID"];
+        $_SESSION["threadID"] = $threadID;
+    } elseif (isset($_SESSION["threadID"])) {
+        $threadID = $_SESSION["threadID"];
+    }
+} else {
+    $threadID = $_SESSION["threadID"];
+}
+
+$sql = "SELECT * FROM `Posts` WHERE `threadid` = '$threadID'";
+$result = $conn->query($sql); ?>
+
+<div class="container col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+
+        <table class="table-striped table-hover table-responsive table-bordered">
+            <tr>
+                <th class="col-md-2 nopadding">User</th>
+                <th class=" nopadding">Post</th>
+                <th class="col-md-2 nopadding">Date</th>
+            </tr>
 
 
-    <table>
-        <tr>
-            <th>User</th>
-            <th>Content</th>
-            <th>Date</th>
-        </tr>
-
-
-        <?php
-        if ($result->num_rows > 0) {
-            $postNum = $_SESSION["postPage"] * 10;
-            while ($row = $result->fetch_assoc()) {
-                $out[] = $row;
-            }
-            $out[] = null;
-            for ($i = $postNum - 10; $i < $postNum; $i++) {
-
-                if ($out[$i] == null) {
-                    $last = true;
-                    break;
-                } else {
-                    $last = false;
+            <?php
+            if ($result->num_rows > 0) {
+                $postNum = $_SESSION["postPage"] * 10;
+                while ($row = $result->fetch_assoc()) {
+                    $out[] = $row;
                 }
-                $creator = $out[$i]["creator"];
-                $content = $out[$i]["content"];
-                $date = $out[$i]["date"];
-                ?>
-                <tr>
-                    <td> <?php echo $creator; ?> </td>
-                    <td> <?php echo $content; ?></td>
-                    <td> <?php echo $date; ?></td>
-                </tr>
+                $out[] = null;
+                for ($i = $postNum - 10; $i < $postNum; $i++) {
 
-                <?php
-            }
-        } elseif ($result->num_rows == 0) {
-            $last = true;
-        } ?>
-    </table>
+                    if ($out[$i] == null) {
+                        $last = true;
+                        break;
+                    } else {
+                        $last = false;
+                    }
+                    $creator = $out[$i]["creator"];
+                    $content = $out[$i]["content"];
+                    $date = $out[$i]["date"];
+                    ?>
+                    <tr>
+                        <td> <?php echo $creator; ?> </td>
+                        <td> <?php echo $content; ?></td>
+                        <td> <?php echo $date; ?></td>
+                    </tr>
+
+                    <?php
+                }
+            } elseif ($result->num_rows == 0) {
+                $last = true;
+            } ?>
+        </table>
+        <div class="panel-footer">
+            <div>
+
+                <form class="form-inline" name="changePostPage" method="GET" action="posts.php">
+                    <?php
+
+                    $postPage = $_SESSION["postPage"];
+
+                    if ($postPage > 1) {
+                        ?>
+                        <div class="form-group col-md-1 ">
+                            <input class="btn btn-sm reducedPadding" type="submit" name="prevpostpage"
+                                   value="Previous Page">
+                        </div><?php
+                    }
+                    if (!$last) {
+                        ?>
+                        <div class="form-group col-md-1 ">
+                            <input class="btn btn-sm reducedPadding" type="submit" name="nextpostpage"
+                                   value="Next Page">
+                        </div><?php
+                    }
+                    ?>
+                    <div class="alignRight"> Page <?php
+                        echo $_SESSION["postPage"]; ?></div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container col-md-3 col-md-offset-1">
+        <form class="form" name="newpost" method="POST" action="newpost.php">
+            <div class="form-group">
+                <input class="form-control col-md-2" type="submit" name="submit" value="Create new post"/>
+            </div>
+        </form>
+    </div>
 
 
-    <?php
-    $postPage = $_SESSION["postPage"];
-    echo "<p>Page $postPage</p>"
-    ?>
-    <form name="changePostPage" method="GET" action="posts.php">
+    <?php } else { ?>
+        <div class="container col-md-8 col-md-offset-2">
+            <div class="panel panel-warning">
+                <div class="panel-heading">Insufficient Permission!</div>
+                <div class="panel-body">You are not allowed to view this content.</div>
+            </div>
+        </div>
         <?php
-        if ($postPage > 1) {
-            ?>
-            <input type="submit" name="prevpostpage" value="Previous Page">
-            <?php
-        }
-        if (!$last) {
-            ?>
-            <input type="submit" name="nextpostpage" value="Next Page">
-            <?php
-        }
-        ?>
-    </form>
-    <form name="newpost" method="POST" action="newpost.php">
-        <input type="submit" name="submit" value="Create new post"/>
-    </form>
-
-<?php } else {
-
-
-    echo "why are you here, again";
-} ?>
+    } ?>
 
 
 </body>

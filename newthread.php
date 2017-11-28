@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register</title>
+    <title>New Thread</title>
     <?php include_once("includeHeader.php"); ?>
 </head>
 <body>

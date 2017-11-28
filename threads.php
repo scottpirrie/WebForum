@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register</title>
+    <title>Threads</title>
     <?php include_once("includeHeader.php"); ?>
 </head>
 <body>
@@ -48,16 +48,6 @@ if ($res->num_rows > 0) {
 
 if ($requiredPermission) {
 
-
-?>
-
-
-<form action="searchResults.php" method="get">
-    Search for a Post :0 <input type="text" name="searchText"> <input type="submit" name="searchButton"><br/><br/>
-</form>
-
-<?php
-
 if (isset($_POST["topicID"])) {
     $topicID = $_POST["topicID"];
 } else {
@@ -65,7 +55,7 @@ if (isset($_POST["topicID"])) {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["create"])) {
-           if (isset($_SESSION["hasPosted"])) {
+        if (isset($_SESSION["hasPosted"])) {
             if ($_SESSION["hasPosted"] == false) {
                 $threadName = cleanStr($_POST["threadName"], $conn);
                 $post = cleanStr($_POST["post"], $conn);
@@ -95,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
+$last = false;
 $sql = "SELECT * FROM `Threads` WHERE `topic` = '$topicID' ORDER BY `datelast` DESC";
 if ($result = $conn->query($sql)) {
     if ($result->num_rows > 0) {
@@ -130,71 +120,95 @@ if (isset($_GET["nextpage"])) {
 
 $sql = "SELECT * FROM `Threads` WHERE `topic` = '$topicID' ORDER BY `datelast` DESC";
 if ($result = $conn->query($sql)) { ?>
-<table>
-    <tr>
-        <th>Threads</th>
-        <th>Creator</th>
-        <th>Last Updated</th>
-    </tr>
-    <?php
-    if ($result->num_rows > 0) {
-    $threadNum = $_SESSION["page"] * 10;
-    while ($row = $result->fetch_assoc()) {
-        $out[] = $row;
-    }
-    $out[] = null;
-    for ($i = $threadNum - 10; $i < $threadNum; $i++) {
+<div class="container col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
 
-        if ($out[$i] == null) {
-            $last = true;
-            break;
-        } else {
-            $last = false;
-        }
-        $threadID = $out[$i]["id"];
-        $threadName = $out[$i]["threadname"];
-        $date = $out[$i]["datelast"];
-        $creator = $out[$i]["creator"];
-        ?>
-        <tr id=<?php echo $threadID; ?> onclick="redirectPost(id)">
-            <td><?php echo $threadName; ?></td>
-            <td><?php echo $creator; ?></td>
-            <td><?php echo $date; ?></td>
-        </tr>
-        <?php
-    }
+        <table class="table-striped table-hover table-responsive table-bordered">
+            <tr>
+                <th class="col-md-4 nopadding">Threads</th>
+                <th class="col-md-2">Creator</th>
+                <th class="col-md-2">Last Updated</th>
+            </tr>
+            <?php
+            if ($result->num_rows > 0) {
+                $threadNum = $_SESSION["page"] * 10;
+                while ($row = $result->fetch_assoc()) {
+                    $out[] = $row;
+                }
+                $out[] = null;
+                for ($i = $threadNum - 10; $i < $threadNum; $i++) {
 
-    echo "</table>";
-    $page = $_SESSION["page"];
-    echo "<p>Page $page</p>"
-    ?>
-    <form method="GET" action="threads.php"><?php
-        if ($page > 1) {
+                    if ($out[$i] == null) {
+                        $last = true;
+                        break;
+                    } else {
+                        $last = false;
+                    }
+                    $threadID = $out[$i]["id"];
+                    $threadName = $out[$i]["threadname"];
+                    $date = $out[$i]["datelast"];
+                    $creator = $out[$i]["creator"];
+                    ?>
+                    <tr id=<?php echo $threadID; ?> onclick="redirectPost(id)">
+                        <td><?php echo $threadName; ?></td>
+                        <td><?php echo $creator; ?></td>
+                        <td><?php echo $date; ?></td>
+                    </tr>
+                    <?php
+                }
+            }
             ?>
-            <input type="submit" name="prevpage" value="Previous Page">
-            <?php
-        }
-        if (!$last) {
+        </table>
+        <div class="panel-footer"><?php
+            $page = $_SESSION["page"];
             ?>
-            <input type="submit" name="nextpage" value="Next Page">
-            <?php
-        }
-        }
-        ?>
-        <input type="hidden" name="topicID" value= <?php echo $topicID; ?>>
-    </form>
+            <form class="form-inline" method="GET" action="threads.php"><?php
+                if ($page > 1) {
+                    ?>
+                    <div class="form-group col-md-1 ">
+                        <input class="btn btn-sm reducedPadding" type="submit" name="prevpage" value="Prev Page">
+                    </div><?php
+                }
+                if (!$last) {
+                    ?>
+                    <div class="form-group col-md-1  ">
+                        <input class="btn btn-sm reducedPadding" type="submit" name="nextpage" value="Next Page">
+                    </div>
+                    <?php
+                }
+
+                ?>
+                <input type="hidden" name="topicID" value= <?php echo $topicID; ?>>
+            </form>
+            <div class="alignRight"> Page
+                <?php echo $_SESSION["page"]; ?>
+            </div>
+
+
+        </div>
+    </div>
+</div>
     <?php } ?>
-    <form method="GET" action="newthread.php">
-        <input type="submit" name="submit" value="Create New Thread"/>
-        <input type="hidden" name="topicID" value="<?php echo $topicID; ?>">
-    </form>
+
+    <div class="container col-md-3 col-md-offset-1">
+        <form class="form" method="GET" action="newthread.php">
+            <div class="form-group">
+            <input   class="form-control col-md-2" type="submit" name="submit" value="Create Thread"/>
+            <input type="hidden" name="topicID" value="<?php echo $topicID; ?>">
+            </div>
+        </form>
+    </div>
+
+    <?php } else { ?>
+        <div class="container col-md-8 col-md-offset-2">
+            <div class="panel panel-warning">
+                <div class="panel-heading">Insufficient Permission!</div>
+                <div class="panel-body">You are not allowed to view this content.</div>
+            </div>
+        </div>
 
 
-    <?php } else {
-        echo "why are you here";
-
-
-    } ?>
+    <?php } ?>
 
 
 </body>
