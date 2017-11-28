@@ -92,7 +92,7 @@ include_once("menu.php");
         <br>
         <br>
 
-        <p>This page was made using Bootstrap 3.3.7. With resources from:
+        <p>This page was made using Bootstrap 3.3.7. After reading tutorials from:
         <ul>
             <li><a href="https://www.w3schools.com/bootstrap/default.asp">W3Schools</a></li>
             <li><a href="http://bootstrapdocs.com/v3.0.3/docs/css/">Bootstrap Official</a></li>
