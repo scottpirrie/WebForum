@@ -83,6 +83,20 @@ function logOff()
             return false;
         }
 
+        if (attemptedName.includes(">")) {
+            document.forms["register"]["newUsername"].value = "";
+            document.forms["register"]["newPassword"].value = "";
+            alert("Username cannot contain '>'.");
+            return false;
+        }
+
+        if (attemptedName.includes("<")) {
+            document.forms["register"]["newUsername"].value = "";
+            document.forms["register"]["newPassword"].value = "";
+            alert("Username cannot contain '<'.");
+            return false;
+        }
+
         return true;
 
     }
