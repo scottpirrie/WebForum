@@ -11,6 +11,9 @@ $currentPath = basename(__FILE__);
 include_once("menu.php");
 
 
+if (!isset($_SESSION['tpage'])) {
+$_SESSION['tpage'] = 1;
+}
 $topicName = "";
 if (isset($_GET["topicID"]) || isset($_SESSION['topicID'])) {
     if(isset($_GET["topicID"]) && isset($_SESSION['topicID'])){
@@ -126,7 +129,7 @@ $last = false;
 $sql = "SELECT * FROM `Threads` WHERE `topic` = '$topicID' ORDER BY `datelast` DESC";
 if ($result = $conn->query($sql)) {
     if ($result->num_rows > 0) {
-        $threadNum = $_SESSION["page"] * 10;
+        $threadNum = $_SESSION["tpage"] * 10;
         while ($row = $result->fetch_assoc()) {
             $out[] = $row;
         }
@@ -143,14 +146,14 @@ if ($result = $conn->query($sql)) {
 }
 if (isset($_GET["nextpage"])) {
     if (!$last) {
-        $_SESSION["page"]++;
+        $_SESSION["tpage"]++;
     }
 } elseif (isset($_GET["prevpage"])) {
-    if ($_SESSION["page"] > 1) {
-        $_SESSION["page"]--;
+    if ($_SESSION["tpage"] > 1) {
+        $_SESSION["tpage"]--;
     }
 } else {
-    $_SESSION["page"] = 1;
+    $_SESSION["tpage"] = 1;
 }
 
 
@@ -169,7 +172,7 @@ if ($result = $conn->query($sql)) { ?>
             </tr>
             <?php
             if ($result->num_rows > 0) {
-                $threadNum = $_SESSION["page"] * 10;
+                $threadNum = $_SESSION["tpage"] * 10;
                 while ($row = $result->fetch_assoc()) {
                     $out[] = $row;
                 }
@@ -208,7 +211,7 @@ if ($result = $conn->query($sql)) { ?>
             ?>
         </table>
         <div class="panel-footer"><?php
-            $page = $_SESSION["page"];
+            $page = $_SESSION["tpage"];
             ?>
             <form class="form-inline" method="GET" action="threads.php"><?php
                 if ($page > 1) {
@@ -229,7 +232,7 @@ if ($result = $conn->query($sql)) { ?>
                 <input type="hidden" name="topicID" value= <?php echo $topicID; ?>>
             </form>
             <div class="alignRight"> Page
-                <?php echo $_SESSION["page"]; ?>
+                <?php echo $_SESSION["tpage"]; ?>
             </div>
 
 

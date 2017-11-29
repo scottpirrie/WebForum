@@ -12,13 +12,18 @@ if (!isset($currentPath)) {
 
 if ($currentPath != "posts.php" && $currentPath != "newpost.php"){
     unset($_SESSION['threadID']);
+    unset($_SESSION['postPage']);
 }
 
 if ($currentPath != "posts.php" && $currentPath != "newpost.php" &&
     $currentPath != "threads.php" && $currentPath != "newthread.php"){
     unset($_SESSION['topicID']);
+    unset($_SESSION['tpage']);
 }
 
+if ($currentPath != "topics.php" && $currentPath != "newtopic.php") {
+    unset($_SESSION['page']);
+}
 
 if (isset($_POST['logoff'])) {
     logOff();
