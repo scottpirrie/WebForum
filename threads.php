@@ -153,6 +153,7 @@ if ($result = $conn->query($sql)) { ?>
                 <th class="col-md-4 nopadding">Threads</th>
                 <th class="col-md-2">Creator</th>
                 <th class="col-md-2">Last Updated</th>
+                <th class="col-md-1"></th>
             </tr>
             <?php
             if ($result->num_rows > 0) {
@@ -182,7 +183,7 @@ if ($result = $conn->query($sql)) { ?>
                                 ?>
                             <td>
                                 <form method="POST" action="threads.php" onclick="return confirm('Are you sure you want to delete this thread?')">
-                                    <input type = "submit" name = "delete" value="Delete">
+                                    <input class="btn btn-sm" type = "submit" name = "delete" value="Delete">
                                     <input type="hidden"value="<?php echo $threadID?>"name="threadID">
                                     <input type="hidden"value="<?php echo $topicID?>"name="topicID">
                                 </form>

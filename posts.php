@@ -176,6 +176,7 @@ $result = $conn->query($sql); ?>
                 <th class="col-md-2 nopadding">User</th>
                 <th class=" nopadding">Post</th>
                 <th class="col-md-2 nopadding">Date</th>
+                <th class="col-md-1"></th>
             </tr>
 
 
@@ -207,7 +208,7 @@ $result = $conn->query($sql); ?>
                             ?>
                             <td>
                                 <form method="POST" action="posts.php" onclick="return confirm('Are you sure you want to delete this post?')">
-                                    <input type = "submit" name = "delete" value="Delete">
+                                    <input class="btn btn-sm" type = "submit" name = "delete" value="Delete">
                                     <input type="hidden"value="<?php echo $postID?>"name="postID">
                                     <input type="hidden"value="<?php echo $topicID?>"name="threadID">
                                 </form>
