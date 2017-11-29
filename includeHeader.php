@@ -126,6 +126,7 @@
         word-wrap: break-word;
         overflow-wrap: break-word;
 
+        vertical-align: top;
         border-collapse: collapse;
         width: 100%;
         table-layout: fixed;
@@ -137,6 +138,7 @@
         padding-bottom: 5px !important;
         padding-left: 8px !important;
         padding-right: 8px !important;
+        vertical-align: top;
     }
 
     tr:nth-child(even) {

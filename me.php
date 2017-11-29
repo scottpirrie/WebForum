@@ -100,7 +100,7 @@ if ($_SESSION["type"] > 0 || $_SESSION["type"] < 0) {
                                     <div class="form-group row">
 
                                         <label class="col-form-label" for="curPassword"> Current Password: </label>
-                                        <input class="form-control col-md-5" id="curPassword" type=password name="curPassword"
+                                        <input class="form-control col-md-4" id="curPassword" type=password name="curPassword"
                                                minlength="4"
                                                maxlength="15"
                                                required>
@@ -110,7 +110,7 @@ if ($_SESSION["type"] > 0 || $_SESSION["type"] < 0) {
                                     <div class="form-group row">
 
                                         <label class="col-form-label" for="passToBe">New Password:</label>
-                                        <input class="form-control col-md-5" id="passToBe" type=password name="newPassword"
+                                        <input class="form-control col-md-4" id="passToBe" type=password name="newPassword"
                                                minlength="4"
                                                maxlength="15" required>
 
@@ -119,7 +119,7 @@ if ($_SESSION["type"] > 0 || $_SESSION["type"] < 0) {
 
                                         <label class="col-form-label" for="passToBeRepeat">Repeat New
                                             Password:</label>
-                                        <input class="form-control col-md-5" id="passToBeRepeat" type=password
+                                        <input class="form-control col-md-4" id="passToBeRepeat" type=password
                                                name="newPasswordRepeat" minlength="4"
                                                maxlength="15" required>
 
