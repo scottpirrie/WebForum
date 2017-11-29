@@ -204,16 +204,18 @@ $result = $conn->query($sql); ?>
                         <td> <?php echo $creator; ?> </td>
                         <td> <?php echo $content; ?></td>
                         <td> <?php echo $date; ?></td>
+                        <td>
                         <?php if(($type <2 && $_SESSION['type']>=2)||($type==2 && $_SESSION['type']==3)||$creator == $_SESSION['user']){
                             ?>
-                            <td>
+
                                 <form method="POST" action="posts.php" onclick="return confirm('Are you sure you want to delete this post?')">
                                     <input class="btn btn-sm" type = "submit" name = "delete" value="Delete">
                                     <input type="hidden"value="<?php echo $postID?>"name="postID">
                                     <input type="hidden"value="<?php echo $topicID?>"name="threadID">
                                 </form>
-                            </td>
+
                         <?php }?>
+                        </td>
                     </tr>
 
                     <?php

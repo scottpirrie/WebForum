@@ -179,16 +179,16 @@ if ($result = $conn->query($sql)) { ?>
                         <td id=<?php echo $threadID; ?> onclick="redirectPost(id)"><?php echo $threadName; ?></td>
                         <td id=<?php echo $threadID; ?> onclick="redirectPost(id)"><?php echo $creator; ?></td>
                         <td id=<?php echo $threadID; ?> onclick="redirectPost(id)"><?php echo $date; ?></td>
-                        <?php if(($type <2 && $_SESSION['type']>=2)||($type==2 && $_SESSION['type']==3)||$creator == $_SESSION['user']){
+                        <td><?php if(($type <2 && $_SESSION['type']>=2)||($type==2 && $_SESSION['type']==3)||$creator == $_SESSION['user']){
                                 ?>
-                            <td>
+
                                 <form method="POST" action="threads.php" onclick="return confirm('Are you sure you want to delete this thread?')">
                                     <input class="btn btn-sm" type = "submit" name = "delete" value="Delete">
                                     <input type="hidden"value="<?php echo $threadID?>"name="threadID">
                                     <input type="hidden"value="<?php echo $topicID?>"name="topicID">
                                 </form>
-                            </td>
-                        <?php }?>
+
+                        <?php }?>  </td>
                     </tr>
                     <?php
                 }
