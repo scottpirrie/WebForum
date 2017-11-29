@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <strong>Post deleted successfully.</strong>
         </div> <?php
 }
-        $sql = "SELECT COUNT(*) FROM `Posts` WHERE `id`='id'";
+        $sql = "SELECT COUNT(`id`) FROM `Posts` WHERE `threadid` = '$threadID'";
         $res = $conn->query($sql);
         if($res->num_rows>0){
             $res= $res->fetch_row();
