@@ -108,15 +108,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }elseif (isset($_POST['delete'])){
         $id = $_POST['postID'];
         $sql = "DELETE FROM `Posts` WHERE `id` = '$id'";
-        $conn->query($sql);
+        if ($conn->query($sql)) {?>
+        <div class="alert alert-success">
+            <strong>Post deleted successfully.</strong>
+        </div> <?php
+}
         $sql = "SELECT COUNT(*) FROM `Posts` WHERE `id`='id'";
         $res = $conn->query($sql);
-        if($res->num_rows==0){
-            $sql = "DELETE FROM `Threads` WHERE `id` = '$threadID'";
-            $conn->query($sql);
-            ?>
-            <script>redirectTopics()</script>
-            <?php
+        if($res->num_rows>0){
+            $res= $res->fetch_row();
+            if($res[0]==0){
+                $sql = "DELETE FROM `Threads` WHERE `id` = '$threadID'";
+                $conn->query($sql);
+                ?>
+                    <script>redirectTopics()</script>
+                <?php
+                }
         }
     }
 }

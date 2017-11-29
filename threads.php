@@ -113,7 +113,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }elseif (isset($_POST['delete'])){
         $id = $_POST['threadID'];
         $sql = "DELETE FROM `Threads` WHERE `id` = '$id'";
-        $conn->query($sql);
+        if ($conn->query($sql)) {
+            ?>
+            <div class="alert alert-success">
+                <strong>Thread deleted successfully.</strong>
+            </div> <?php
+        }
     }
 }
 
