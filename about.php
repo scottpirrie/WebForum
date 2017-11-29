@@ -49,6 +49,7 @@ include_once("menu.php");
                     <li>A typical user, can view topics/threads labelled "Logged in & Good Standing" & below.</li>
                     <li>Can post to threads they can view.</li>
                     <li>Can create threads in topics they can view.</li>
+                    <li>Can delete threads/posts that they made.</li>
                 </ul>
             </li>
 
@@ -61,6 +62,7 @@ include_once("menu.php");
                     <li>Can create threads in topics they can view.</li>
                     <li>Can create topics which have required permissions.</li>
                     <li>Can manipulate permissions of accounts that are not Admins. (i.e. Ban)</li>
+                    <li>Can delete any thread/post.</li>
                 </ul>
             </li>
 
@@ -72,6 +74,7 @@ include_once("menu.php");
                     <li>Can create topics which have required permissions.</li>
                     <li>Can manipulate permissions of accounts that are not Admins. (i.e. Ban)</li>
                     <li>Has access to an increased operations set: Clearing forum.</li>
+                    <li>Can delete any thread/post.</li>
                 </ul>
             </li>
 
