@@ -13,11 +13,19 @@ include_once("menu.php");
 
 $topicName = "";
 if (isset($_GET["topicID"]) || isset($_SESSION['topicID'])) {
+    if(isset($_GET["topicID"]) && isset($_SESSION['topicID'])){
+        if($_SESSION['topicID']!=$_GET["topicID"]){
+            $_SESSION['topicID']=$_GET["topicID"];
+            unset($_GET['nextpage']);
+            unset($_GET['prevpage']);
+        }
+    }
     if (isset($_GET["topicID"])) {
         $topicName = $_GET["topicID"];
         $_SESSION['topicID'] = $topicName;
     } else {
         $topicName = $_SESSION["topicID"];
+
     }
 
 } else { ?>
@@ -39,7 +47,7 @@ if ($res->num_rows > 0) {
 }
 ?>
 <div class="page-header col-md-offset-1">
-    <h1>Threads: Topic</h1>
+    <h1>Threads</h1>
     <h3>Topic: <?php echo $tempTopicName; ?></h3>
 </div>
 
@@ -119,7 +127,6 @@ if ($result = $conn->query($sql)) {
         }
         $out[] = null;
         for ($i = $threadNum - 10; $i < $threadNum; $i++) {
-
             if ($out[$i] == null) {
                 $last = true;
                 break;

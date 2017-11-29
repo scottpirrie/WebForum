@@ -13,6 +13,13 @@ include_once("menu.php");
 
 $topicName = "";
 if (isset($_GET["threadID"]) || isset($_SESSION['threadID'])) {
+    if(isset($_GET["threadID"]) && isset($_SESSION['threadID'])){
+        if($_SESSION['threadID']!=$_GET["threadID"]){
+            $_SESSION['threadID']=$_GET["threadID"];
+            unset($_GET['nextpage']);
+            unset($_GET['prevpage']);
+        }
+    }
     if (isset($_GET["threadID"])) {
         $threadIDnumber = $_GET["threadID"];
         $_SESSION['threadID'] = $threadIDnumber;

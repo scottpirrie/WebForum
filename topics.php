@@ -53,19 +53,26 @@ if ($result->num_rows > 0) {
     }
     $out[] = null;
     for ($i = $topicNum - 10; $i < $topicNum; $i++) {
-
-        if ($out[$i] == null) {
+        if(isset($out[$i])){
+            if ($out[$i] == null) {
+                $last = true;
+                break;
+            } else {
+                $last = false;
+            }
+        } else{
             $last = true;
-            break;
-        } else {
-            $last = false;
         }
+
     }
 } else {
     $last = true;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if($last && isset($_GET["nextpage"])){
+        unset($_GET["nextpage"]);
+    }
     if (isset($_GET["nextpage"])) {
         if (!$last) {
             $_SESSION["page"]++;
